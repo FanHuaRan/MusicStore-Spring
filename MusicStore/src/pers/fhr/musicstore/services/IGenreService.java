@@ -1,9 +1,10 @@
 package pers.fhr.musicstore.services;
 
 import java.util.List;
-import java.util.Set;
+
+import pers.fhr.musicstore.models.Genre;
 
 public interface IGenreService {
 	 Genre FindGenreByName(String genreName);
-     Set<Genre> FindGenres();
+     List<Genre> FindGenres();
 }

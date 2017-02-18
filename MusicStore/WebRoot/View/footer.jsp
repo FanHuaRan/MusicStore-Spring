@@ -6,7 +6,7 @@
 </head>
 <body>
      <div id="footer">
-        built with <a href="http://asp.net/mvc">spring mvc</a>
+        built with <a href="http://spring.io/">spring mvc</a>
     </div>
 </body>
 </html>

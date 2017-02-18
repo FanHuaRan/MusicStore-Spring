@@ -18,4 +18,9 @@
    	 <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     
-</beans>  
+    <bean id="sessionFactory"
+    	class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    	<property name="configLocation"
+    		value="classpath:hibernate.cfg.xml">
+    	</property>
+    </bean></beans>  

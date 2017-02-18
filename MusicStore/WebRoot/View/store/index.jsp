@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -17,24 +18,18 @@
   </head>
   
   <body>
-    <jsp:include page="header.jsp" />
-    <div id="promotion">
-	</div>
-	<h2>Music Stre Home Page</h2>
-	<h3><em>Fresh</em>off the grill</h3>
+    <jsp:include page="../header.jsp" />
+    <h3>Browse Genres</h3>
+	<p>
+	    select from ${genres.size()} genres:
+	</p>
 	<ul>
-	<!--  
-	    @foreach (var album in @Model)
-	    {
-	        <li>
-	            <a href="@Url.Action("Details", "Store", new { id=album.AlbumId})">
-	                <img alt="@album.Title" src="@album.AlbumArtUrl" />
-	                <span>@album.Title</span>
-	            </a>
-	        </li>
-	    }
-	    -->
+	<c:forEach items="${genres}" var="genre">
+		<li>
+		  <a href="Store/Browse?genre=${genre.getName()}"> ${genre.getName()}</a>
+		</li>
+	</c:forEach>
 	</ul>
-    <jsp:include page="footer.jsp"/>
+    <jsp:include page="../footer.jsp"/>
   </body>
 </html>

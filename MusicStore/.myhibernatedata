@@ -1,0 +1,21 @@
+#MyEclipse Hibernate Properties
+#Sat Feb 18 00:35:36 CST 2017
+genBasicCompId=false
+sessionFactoryName=pers.fhr.musicstore.hibernate.HibernateSessionFactory
+profile=
+daoSFId=
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=
+useJavaTypes=true
+keyGenerator=
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/MusicStore/src/hibernate.cfg.xml
+createConfigFile=true
+baseDaoClass=BaseHibernateDAO
