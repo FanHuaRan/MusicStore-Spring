@@ -39,6 +39,16 @@ public class CartDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
+	public void update(Cart transientInstance) {
+		log.debug("updateing Cart instance");
+		try {
+			getSession().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 
 	public void delete(Cart persistentInstance) {
 		log.debug("deleting Cart instance");
@@ -87,7 +97,19 @@ public class CartDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	public List FindCartByCartIdAndAlbumId(String cartId, int albumId){
+		log.debug("finding Cart instance with CartId And AlbumId: " + cartId + " " + albumId);
+		try {
+			String queryString = "from Cart as model where model.albumId=? and cartId=?";
+			Query queryObject = getSession().createQuery(queryString);
+			queryObject.setParameter(0, albumId);
+			queryObject.setParameter(1, cartId);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("finding Cart instance with CartId And AlbumId failed", re);
+			throw re;
+		}
+	}
 	public List findByCartId(Object cartId) {
 		return findByProperty(CART_ID, cartId);
 	}

@@ -15,7 +15,7 @@ public interface IShoppingComponet {
      String GetCartId(HttpSession session);
      List<Cart> GetCartItems(String shoppingCartId);
      int GetCount(String shoppingCartId);
-     float GetTotal(String shoppingCartId);
+     double GetTotal(String shoppingCartId);
      void MigrateCart(String ShoppingCartId, String userName);
      int RemoveFromCart(String shoppingCartId, int recordId);
      String getCartSessionKey();

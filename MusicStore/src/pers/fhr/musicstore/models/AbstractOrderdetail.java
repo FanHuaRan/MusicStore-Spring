@@ -10,6 +10,8 @@ public abstract class AbstractOrderdetail implements java.io.Serializable {
 	// Fields
 
 	private Integer orderDetailId;
+	private Integer albumId;
+	private Integer orderId;
 	private Album album;
 	private Order order;
 	private Integer quantity;
@@ -38,7 +40,20 @@ public abstract class AbstractOrderdetail implements java.io.Serializable {
 	public void setOrderDetailId(Integer orderDetailId) {
 		this.orderDetailId = orderDetailId;
 	}
+	public Integer getAlbumId() {
+		return this.albumId;
+	}
 
+	public void setAlbumId(Integer albumId) {
+		this.albumId = albumId;
+	}
+	public Integer getOrderId() {
+		return this.orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 	public Album getAlbum() {
 		return this.album;
 	}

@@ -13,7 +13,7 @@ public interface IShopCartService {
     void DeleteCart(List<Cart> carts);
     void DeleteCart(Cart cart);
     Integer StaticAlbumCount(String cartId);
-    float StaticTotalMoney(String cartId);
+    double StaticTotalMoney(String cartId);
     void InitialAndCreatCart(Album album, String shoppingCartId);
     void EditCart(Cart cart);
 }

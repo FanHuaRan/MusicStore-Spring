@@ -49,7 +49,16 @@ public class OrderDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	public void update(Order transientInstance) {
+		log.debug("update Order instance");
+		try {
+			getSession().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 	public void delete(Order persistentInstance) {
 		log.debug("deleting Order instance");
 		try {

@@ -62,7 +62,7 @@ public class StoreManagerController {
 	public String create(Album album){
 		try{
 			albumService.CreateAlbum(album);
-	        return "redirect:/index";
+	        return "redirect:index";
 		}catch(Exception e){
 			logger.error(e.getMessage());
 			return "storemanager/create";

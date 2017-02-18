@@ -10,10 +10,16 @@
             <column name="OrderDetailId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="album" class="pers.fhr.musicstore.models.Album" fetch="select">
+        <property name="albumId" type="java.lang.Integer">
+        	<column name="AlbumId" not-null="true"></column>
+        </property>
+        <property name="orderId" type="java.lang.Integer">
+        	<column name="OrderId" not-null="true"></column>
+        </property>
+        <many-to-one name="album" class="pers.fhr.musicstore.models.Album" insert="false" update="false" fetch="select">
             <column name="AlbumId" not-null="true" />
         </many-to-one>
-        <many-to-one name="order" class="pers.fhr.musicstore.models.Order" fetch="select">
+        <many-to-one name="order" class="pers.fhr.musicstore.models.Order" insert="false" update="false" fetch="select">
             <column name="OrderId" not-null="true" />
         </many-to-one>
         <property name="quantity" type="java.lang.Integer">
