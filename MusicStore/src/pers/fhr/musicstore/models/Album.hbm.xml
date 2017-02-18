@@ -10,10 +10,10 @@
             <column name="AlbumId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="artist" class="pers.fhr.musicstore.models.Artist" fetch="select">
+        <many-to-one name="artist" class="pers.fhr.musicstore.models.Artist" insert="false" update="false" fetch="select">
             <column name="ArtistId" not-null="true" />
         </many-to-one>
-        <many-to-one name="genre" class="pers.fhr.musicstore.models.Genre" fetch="select">
+        <many-to-one name="genre" class="pers.fhr.musicstore.models.Genre" insert="false" update="false" fetch="select">
             <column name="GenreId" not-null="true" />
         </many-to-one>
         <property name="title" type="java.lang.String">
@@ -24,6 +24,12 @@
         </property>
         <property name="albumArtUrl" type="java.lang.String">
             <column name="AlbumArtUrl" length="1024" />
+        </property>
+        <property name="artistId" type="java.lang.Integer">
+        	<column name="ArtistId" not-null="true"></column>
+        </property>
+        <property name="genreId" type="java.lang.Integer">
+        	<column name="GenreId" not-null="true"></column>
         </property>
         <set name="carts" inverse="true">
             <key>

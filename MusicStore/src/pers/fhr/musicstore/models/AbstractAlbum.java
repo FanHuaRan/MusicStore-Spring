@@ -13,6 +13,8 @@ public abstract class AbstractAlbum implements java.io.Serializable {
 	// Fields
 
 	private Integer albumId;
+	private Integer artistId;
+	private Integer genreId;
 	private Artist artist;
 	private Genre genre;
 	private String title;
@@ -56,7 +58,18 @@ public abstract class AbstractAlbum implements java.io.Serializable {
 	public void setAlbumId(Integer albumId) {
 		this.albumId = albumId;
 	}
-
+	public Integer getArtistId(){
+		return this.artistId;
+	}
+	public void setArtistId(Integer artistId){
+		this.artistId=artistId;
+	}
+	public Integer getGenreId(){
+		return this.genreId;
+	}
+	public void setGenreId(Integer genreId){
+		this.genreId=genreId;
+	}
 	public Artist getArtist() {
 		return this.artist;
 	}

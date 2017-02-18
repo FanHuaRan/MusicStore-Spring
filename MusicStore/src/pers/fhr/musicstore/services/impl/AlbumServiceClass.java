@@ -24,26 +24,25 @@ public class AlbumServiceClass implements IAlbumService {
 
 	@Override
 	public List<Album> FindAlbums() {
-		// TODO Auto-generated method stub
-		return null;
+		return albumDao.findAll();
 	}
 
 	@Override
 	public void CreateAlbum(Album album) {
-		// TODO Auto-generated method stub
-
+		albumDao.save(album);
 	}
 
 	@Override
 	public void EditAlbum(Album album) {
-		// TODO Auto-generated method stub
-
+		albumDao.save(album);
 	}
 
 	@Override
 	public void DeleteAlbum(int id) {
-		// TODO Auto-generated method stub
-
+		 Album album=albumDao.findById(id);
+		 if(album!=null){
+			 albumDao.delete(album);
+		 }
 	}
 
 }
