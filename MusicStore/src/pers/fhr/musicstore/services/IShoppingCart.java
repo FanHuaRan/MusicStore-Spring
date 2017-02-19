@@ -10,7 +10,7 @@ public interface IShoppingCart {
     int RemoveFromCart(int recordId);
     void EmptyCart();
     int GetCount();
-    float GetTotal();
+    double GetTotal();
     int CreateOrder(Order order);
     String GetCartId(HttpSession session);
     void MigrateCart(String userName);
