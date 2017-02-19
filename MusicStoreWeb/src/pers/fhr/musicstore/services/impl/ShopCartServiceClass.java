@@ -10,10 +10,10 @@ import pers.fhr.musicstore.daos.CartDAO;
 import pers.fhr.musicstore.models.Album;
 import pers.fhr.musicstore.models.Cart;
 import pers.fhr.musicstore.services.IShopCartService;
-@Service
+
 public class ShopCartServiceClass implements IShopCartService {
-	@Autowired
-	private CartDAO cartDAO=null;
+
+	private CartDAO cartDAO=new CartDAO();
 	@Override
 	public String FindCartAlbumTitle(int cartRecordId) {
 		Cart cart=cartDAO.findById(cartRecordId);

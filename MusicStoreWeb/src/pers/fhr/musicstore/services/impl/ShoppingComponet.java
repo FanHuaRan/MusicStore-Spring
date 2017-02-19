@@ -16,12 +16,12 @@ import pers.fhr.musicstore.models.Order;
 import pers.fhr.musicstore.services.IOrderService;
 import pers.fhr.musicstore.services.IShopCartService;
 import pers.fhr.musicstore.services.IShoppingComponet;
-@Service
+
 public class ShoppingComponet implements IShoppingComponet {
-	@Autowired
-	 private  IShopCartService shopCartService=null;
-	@Autowired
-     private  IOrderService orderService=null;
+	
+	 private  IShopCartService shopCartService=new ShopCartServiceClass();
+     private  IOrderService orderService=new OrderServiceClass();
+     
 	  //存在Session中的键值 保存ShoppingCartId
     private  final  String cartSessionKey = "CartId";
 	@Override

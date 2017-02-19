@@ -1,5 +1,7 @@
 package pers.fhr.musicstore.models;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import pers.fhr.musicstore.services.IShoppingCart;
@@ -9,11 +11,18 @@ import pers.fhr.musicstore.services.impl.ShoppingComponet;
 public class ShopingCart implements IShoppingCart {
 	
 	 private static final IShoppingComponet shoppingComponet=new ShoppingComponet();
+	 public static ShopingCart GetCart(HttpSession session){
+		 ShopingCart cart = new ShopingCart();
+         cart.setShoppingCartId(cart.GetCartId(session));
+         return cart;
+     }
 	 private String shoppingCartId;
 	 public String getShoppingCartId() {
 		return shoppingCartId;
 	 }
-
+	 public List<Cart> GetCartItems(){
+         return shoppingComponet.GetCartItems(shoppingCartId);
+     }
 	 public void setShoppingCartId(String shoppingCartId) {
 		this.shoppingCartId = shoppingCartId;
 	 }
