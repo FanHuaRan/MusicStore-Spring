@@ -22,7 +22,6 @@ public class ShoppingComponet implements IShoppingComponet {
 	 private  IShopCartService shopCartService=null;
 	 @Autowired
      private  IOrderService orderService=null;
-     
 	  //存在Session中的键值 保存ShoppingCartId
     private  final  String cartSessionKey = "CartId";
 	@Override

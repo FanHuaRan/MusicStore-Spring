@@ -4,13 +4,24 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+
 import pers.fhr.musicstore.services.IShoppingCart;
 import pers.fhr.musicstore.services.IShoppingComponet;
 import pers.fhr.musicstore.services.impl.ShoppingComponet;
 
 public class ShopingCart implements IShoppingCart {
-	
-	 private static final IShoppingComponet shoppingComponet=new ShoppingComponet();
+	 private static  IShoppingComponet shoppingComponet=null;
+	 static{
+		 WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();  
+		 shoppingComponet=wac.getBean(ShoppingComponet.class);
+	 }
+	 @Autowired
+	 public void setShoppingComponet(IShoppingComponet shoppingComponet){
+		 ShopingCart.shoppingComponet=shoppingComponet;
+	 }
 	 public static ShopingCart GetCart(HttpSession session){
 		 ShopingCart cart = new ShopingCart();
          cart.setShoppingCartId(cart.GetCartId(session));

@@ -107,7 +107,7 @@ public class CartDAO extends BaseHibernateDAO {
 	public List FindCartByCartIdAndAlbumId(String cartId, int albumId){
 		log.debug("finding Cart instance with CartId And AlbumId: " + cartId + " " + albumId);
 		try {
-			String queryString = "from Cart as model where model.albumId=? and cartId=?";
+			String queryString = "from Cart as model where model.album.albumId=? and cartId=?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, albumId);
 			queryObject.setParameter(1, cartId);
