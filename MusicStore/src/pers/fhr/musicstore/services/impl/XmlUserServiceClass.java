@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.enterprise.inject.New;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,7 +28,7 @@ import pers.fhr.musicstore.services.IUserService;
 public class XmlUserServiceClass implements IUserService {
 	private static Logger logger = Logger.getLogger(XmlUserServiceClass.class);
 	@Override
-	public String findUserRole(String userName, String password) {
+	public synchronized String findUserRole(String userName, String password) {
 		try {
 		File file = getUserXmlFile();
 		Document doc = getDocument(file); 
@@ -46,7 +47,7 @@ public class XmlUserServiceClass implements IUserService {
 		} 
 		return null;
 	}
-	public String findUserPassword(String userName){
+	public synchronized String findUserPassword(String userName){
 		try {
 			File file = getUserXmlFile();
 			Document doc = getDocument(file); 
@@ -66,7 +67,7 @@ public class XmlUserServiceClass implements IUserService {
 	}
 	
 	@Override
-	public boolean insertUser(String userName, String password,String role) {
+	public synchronized boolean insertUser(String userName, String password,String role) {
 		try {
 			File file = getUserXmlFile();
 			Document doc= getDocument(file);

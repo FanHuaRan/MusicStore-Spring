@@ -11,16 +11,16 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="Css/Site.css">
-	<script src="Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="../Css/Site.css">
+	<script src="../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="../Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
 
   </head>
   
   <body>
     <jsp:include page="../header.jsp" />
     <h2>Index</h2>
-	<p><a href="StoreManager/Create">Create New</a></p>
+	<p><a href="../StoreManager/Create">Create New</a></p>
 	<table class="table">
     <tr>
         <th>Artist</th>
@@ -36,9 +36,9 @@
 	        <td>${album.getTitle()}</td>
 	        <td>${album.getPrice()}</td>
 	        <td>
-	        	<a href="StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
-	            <a href="StoreManager/Details?id=${album.getAlbumId()}">Details</a>
-	        	<a href="StoreManager/Delete?id=${album.getAlbumId()}">Delete</a>
+	        	<a href="../StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
+	            <a href="../StoreManager/Details?id=${album.getAlbumId()}">Details</a>
+	        	<a href="../StoreManager/Delete?id=${album.getAlbumId()}">Delete</a>
 	        </td>
 	    </tr>
 	</c:forEach>

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,9 @@ public class CartDAO extends BaseHibernateDAO {
 	public void save(Cart transientInstance) {
 		log.debug("saving Cart instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().save(transientInstance);
+			transaction.commit();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -42,7 +45,9 @@ public class CartDAO extends BaseHibernateDAO {
 	public void update(Cart transientInstance) {
 		log.debug("updateing Cart instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().update(transientInstance);
+			transaction.commit();
 			log.debug("update successful");
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
@@ -53,7 +58,9 @@ public class CartDAO extends BaseHibernateDAO {
 	public void delete(Cart persistentInstance) {
 		log.debug("deleting Cart instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().delete(persistentInstance);
+			transaction.commit();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -133,7 +140,9 @@ public class CartDAO extends BaseHibernateDAO {
 	public Cart merge(Cart detachedInstance) {
 		log.debug("merging Cart instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			Cart result = (Cart) getSession().merge(detachedInstance);
+			transaction.commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -145,7 +154,9 @@ public class CartDAO extends BaseHibernateDAO {
 	public void attachDirty(Cart instance) {
 		log.debug("attaching dirty Cart instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().saveOrUpdate(instance);
+			transaction.commit();
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);

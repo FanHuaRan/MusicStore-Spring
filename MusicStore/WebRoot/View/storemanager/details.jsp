@@ -43,8 +43,8 @@
 	    </dl>
 	</div>
 	<p>
-	    <a href="StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
-	     <a href="StoreManager">Back to List</a>
+	    <a href="../StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
+	     <a href="../StoreManager">Back to List</a>
 	</p>
     <jsp:include page="../footer.jsp"/>
   </body>

@@ -69,7 +69,7 @@
         	  </div>
        	 </div>
        </form>
-      <div><a href="/StoreManager">Back to List</a></div>
+      <div><a href="../StoreManager">Back to List</a></div>
     </div>
       
     <jsp:include page="../footer.jsp"/>

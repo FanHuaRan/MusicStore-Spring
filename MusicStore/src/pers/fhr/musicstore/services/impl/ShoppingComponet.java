@@ -16,11 +16,12 @@ import pers.fhr.musicstore.models.Order;
 import pers.fhr.musicstore.services.IOrderService;
 import pers.fhr.musicstore.services.IShopCartService;
 import pers.fhr.musicstore.services.IShoppingComponet;
-
+@Service
 public class ShoppingComponet implements IShoppingComponet {
-	
-	 private  IShopCartService shopCartService=new ShopCartServiceClass();
-     private  IOrderService orderService=new OrderServiceClass();
+	@Autowired
+	 private  IShopCartService shopCartService=null;
+	 @Autowired
+     private  IOrderService orderService=null;
      
 	  //存在Session中的键值 保存ShoppingCartId
     private  final  String cartSessionKey = "CartId";
@@ -52,15 +53,16 @@ public class ShoppingComponet implements IShoppingComponet {
 
 	@Override
 	public String GetCartId(HttpSession session) {
-		if (session.getAttribute(cartSessionKey).equals(null)||session.getAttribute(cartSessionKey).equals("")){
-			UserDetails userDetails=GetUserDetails();
+		if (session.getAttribute(cartSessionKey)==null||session.getAttribute(cartSessionKey).equals("")){
+			/*UserDetails userDetails=GetUserDetails();
             if (userDetails.getUsername()!=null&&!userDetails.getUsername().equals("")){
             	session.setAttribute(cartSessionKey, userDetails.getUsername());
             }
             else{
+            */
             	UUID tempCartId=UUID.randomUUID();
             	session.setAttribute(cartSessionKey,tempCartId);
-            }
+           // }
         }
         return session.getAttribute(cartSessionKey).toString();
 	}

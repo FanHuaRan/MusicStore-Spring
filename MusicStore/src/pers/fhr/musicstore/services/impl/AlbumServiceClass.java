@@ -11,37 +11,37 @@ import pers.fhr.musicstore.daos.AlbumDAO;;
 @Service
 public class AlbumServiceClass implements IAlbumService {
 	@Autowired
-	private AlbumDAO  albumDao=null;
+	private AlbumDAO  albumDAO=null;
 	@Override
 	public List<Album> GetTopSellingAlbums(int count) {
-		return albumDao.getAlbumsOrderByOrderDetailsTopCount(count);
+		return albumDAO.getAlbumsOrderByOrderDetailsTopCount(count);
 	}
 
 	@Override
 	public Album FindAlbumById(int id) {
-		return albumDao.findById(id);
+		return albumDAO.findById(id);
 	}
 
 	@Override
 	public List<Album> FindAlbums() {
-		return albumDao.findAll();
+		return albumDAO.findAll();
 	}
 
 	@Override
 	public void CreateAlbum(Album album) {
-		albumDao.save(album);
+		albumDAO.save(album);
 	}
 
 	@Override
 	public void EditAlbum(Album album) {
-		albumDao.save(album);
+		albumDAO.update(album);
 	}
 
 	@Override
 	public void DeleteAlbum(int id) {
-		 Album album=albumDao.findById(id);
+		 Album album=albumDAO.findById(id);
 		 if(album!=null){
-			 albumDao.delete(album);
+			 albumDAO.delete(album);
 		 }
 	}
 

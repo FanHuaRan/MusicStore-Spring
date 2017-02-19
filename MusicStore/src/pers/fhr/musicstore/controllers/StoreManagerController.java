@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.httpclient.HttpState;
-import org.apache.commons.httpclient.HttpStatus;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +19,6 @@ import pers.fhr.musicstore.models.Genre;
 import pers.fhr.musicstore.services.IAlbumService;
 import pers.fhr.musicstore.services.IArtistService;
 import pers.fhr.musicstore.services.IGenreService;
-import pers.fhr.musicstore.services.impl.ArtistServiceClass;
 
 @Controller
 @RequestMapping("/StoreManager")
@@ -41,11 +38,11 @@ public class StoreManagerController {
 	@RequestMapping("/Details")
 	public ModelAndView Details(Integer id){
 		if(id==null){
-			return null;
+			throw new AlbumNotFoundException();
 		}
 		Album album = albumService.FindAlbumById(id);
         if (album == null){
-               return null;
+        	throw new AlbumNotFoundException();
          }
          return new ModelAndView("storemanager/details","album",album);
 	}
@@ -62,7 +59,7 @@ public class StoreManagerController {
 	public String create(Album album){
 		try{
 			albumService.CreateAlbum(album);
-	        return "redirect:index";
+	        return "redirect:";
 		}catch(Exception e){
 			logger.error(e.getMessage());
 			return "storemanager/create";
@@ -79,9 +76,9 @@ public class StoreManagerController {
         }
 		List<Artist> artists=artistService.findArtists();
 		List<Genre> genres=genreService.FindGenres();
-		model.addAttribute(artists);
-		model.addAttribute(genres);
-		model.addAttribute(album);
+		model.addAttribute("artists",artists);
+		model.addAttribute("genres",genres);
+		model.addAttribute("album",album);
 		return "storemanager/edit";
 	}
 	@RequestMapping(value="/Edit",
@@ -89,15 +86,14 @@ public class StoreManagerController {
 	public String edit(Album album){
 		try{
 			albumService.EditAlbum(album);
-		    return "redirect:/index";
+		    return "redirect:";
 		}catch(Exception e){
 			logger.error(e.getMessage());
 			return "storemanager/edit";
 		}
 	}
 	@RequestMapping("/Delete")
-    public String Delete(Integer id)
-    {
+    public String Delete(Model model,Integer id){
         if (id == null){
             throw new AlbumNotFoundException();
         }
@@ -105,14 +101,15 @@ public class StoreManagerController {
         if (album == null){
              throw new AlbumNotFoundException();
         }
+        model.addAttribute(album);
         return "storemanager/delete";
     }
 	@RequestMapping(value="/Delete",
 			method=RequestMethod.POST)
-    public String DeleteConfirmed(Integer id)
+    public String DeleteConfirmed(Album album)
     {
-        albumService.DeleteAlbum(id);
+        albumService.DeleteAlbum(album.getAlbumId());
         //采用重定向
-        return "redirect:/index";
+        return "redirect:";
     }
 }

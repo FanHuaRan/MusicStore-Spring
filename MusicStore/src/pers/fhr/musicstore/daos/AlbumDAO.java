@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,18 +50,34 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public void save(Album transientInstance) {
 		log.debug("saving Album instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().save(transientInstance);
+			transaction.commit();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
-
+	public void update(Album transientInstance) {
+		log.debug("updateing Album instance");
+		try {
+			getSession().clear();
+			Transaction transaction=getSession().beginTransaction();
+			getSession().update(transientInstance);
+			transaction.commit();
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 	public void delete(Album persistentInstance) {
 		log.debug("deleting Album instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().delete(persistentInstance);
+			transaction.commit();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -132,7 +149,9 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public Album merge(Album detachedInstance) {
 		log.debug("merging Album instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			Album result = (Album) getSession().merge(detachedInstance);
+			transaction.commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -144,7 +163,9 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public void attachDirty(Album instance) {
 		log.debug("attaching dirty Album instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().saveOrUpdate(instance);
+			transaction.commit();
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
@@ -155,7 +176,9 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public void attachClean(Album instance) {
 		log.debug("attaching clean Album instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().lock(instance, LockMode.NONE);
+			transaction.commit();
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);
