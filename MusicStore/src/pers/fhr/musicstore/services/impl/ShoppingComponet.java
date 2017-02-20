@@ -66,7 +66,7 @@ public class ShoppingComponet implements IShoppingComponet {
         return session.getAttribute(cartSessionKey).toString();
 	}
 
-	private UserDetails GetUserDetails() {
+	private UserDetails getUserDetails() {
 		return (UserDetails) SecurityContextHolder.getContext()
 			    .getAuthentication()
 			    .getPrincipal();

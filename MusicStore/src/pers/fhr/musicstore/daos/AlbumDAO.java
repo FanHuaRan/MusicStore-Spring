@@ -35,10 +35,10 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public static final String ALBUM_ART_URL = "albumArtUrl";
 	@SuppressWarnings("unchecked")
 	public List<Album> getAlbumsOrderByOrderDetailsTopCount(int count){
-		//Session session=getSession();
-		//Query query=session.createQuery("from album order by album.getOrderdetails().size() desc");
-		//List<Album> albums=(List<Album>)query.list();
-		List<Album> albums=findAll();
+		Session session=getSession();
+		Query query=session.createQuery("from Album a order by a.orderdetails.size desc").setMaxResults(count);
+		List<Album> albums=(List<Album>)query.list();
+		//List<Album> albums=findAll();
 		/*
 		albums.stream().sorted((p1,p2)->
 		((Integer)p1.getOrderdetails().size()).compareTo(((Integer)p2.getOrderdetails().size())))

@@ -41,7 +41,7 @@ public class ShoppingCartController {
         return "redirect:";
     }
     @ResponseBody 
-	@RequestMapping(value="/RemoveFromCart/{id}",
+	@RequestMapping(value="/RemoveFromCart",
 					method=RequestMethod.POST,
 					produces=MediaType.APPLICATION_JSON_VALUE)
     public ShoppingCartRemoveViewModel RemoveFromCart(HttpSession session, int id){
