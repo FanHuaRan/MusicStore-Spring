@@ -18,7 +18,7 @@
   </head>
   
   <body>
-     <%@ include file="../header.jsp" @%>
+     <%@ include file="../header.jsp"%>
     <div id="main">
 		<h2>Create a New Account</h2>
 		<p>Use the form below to create a new account. </p>
@@ -28,20 +28,20 @@
 		           <legend>Account Information</legend>
 		            <div class="editor-label">UserName:</div>
 		            <div class="editor-field">
-		                <input type='text' path='Name'/>
+		                <form:input type='text' path='Name'/>
 		            </div>
 		
 		            <div class="editor-label">Password:</div>
 		            <div class="editor-field">
-		               <input type='password' path='Password'/>
+		               <form:input type='password' path='Password'/>
 		            </div>
 		            <p>
-		                <input name="submit" type="submit" value=Register/>
+		                <input name="submit" type="submit" value="Register"/>
 		            </p>
 		        </fieldset>
 		    </div>
 		</form:form>
     </div>
-     <%@ include file="../footer.jsp" @%>
+     <%@ include file="../footer.jsp"%>
   </body>
 </html>

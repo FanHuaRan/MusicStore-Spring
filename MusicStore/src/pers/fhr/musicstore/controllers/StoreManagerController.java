@@ -61,7 +61,7 @@ public class StoreManagerController {
 	public String create(Album album){
 		try{
 			albumService.CreateAlbum(album);
-	        return "redirect:";
+	        return "redirect:/StoreManager";
 		}catch(Exception e){
 			logger.error(e.getMessage());
 			return "storemanager/create";
@@ -88,7 +88,7 @@ public class StoreManagerController {
 	public String edit(Album album){
 		try{
 			albumService.EditAlbum(album);
-		    return "redirect:";
+		    return "redirect:/StoreManager";
 		}catch(Exception e){
 			logger.error(e.getMessage());
 			return "storemanager/edit";
@@ -112,6 +112,6 @@ public class StoreManagerController {
     {
         albumService.DeleteAlbum(album.getAlbumId());
         //采用重定向
-        return "redirect:";
+        return "redirect:/StoreManager";
     }
 }
