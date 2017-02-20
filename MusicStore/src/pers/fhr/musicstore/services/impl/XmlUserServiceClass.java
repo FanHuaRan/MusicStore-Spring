@@ -3,7 +3,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import javax.enterprise.inject.New;
+import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,6 +28,8 @@ import pers.fhr.musicstore.services.IUserService;
 @Service
 public class XmlUserServiceClass implements IUserService {
 	private static Logger logger = Logger.getLogger(XmlUserServiceClass.class);
+	@Resource  
+	private ServletContext servletContext;   
 	@Override
 	public synchronized String findUserRole(String userName, String password) {
 		try {
@@ -117,9 +120,8 @@ public class XmlUserServiceClass implements IUserService {
 		}
 
 		private File getUserXmlFile() {
-			 String path = XmlUserServiceClass.class.getClass().getResource("/").getPath();
-	         path = path.substring(1, path.indexOf("classes"));
-			File file=new File(path+"musicstore-users");
+			String path=servletContext.getRealPath("/WEB-INF/musicstore-users.xml");
+			File file=new File(path);
 			return file;
 		}
 

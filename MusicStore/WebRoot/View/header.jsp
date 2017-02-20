@@ -9,10 +9,10 @@
         <h1>Spring MVC MUSIC STORE</h1>
         <ul id="navlist">
             <li class="first">  
-                <a href="index" id="current">Home</a>
+                <a href="/MusicStore/index" id="current">Home</a>
             </li>
             <li>
-                <a href="Store">Store</a>
+                <a href="/MusicStore/Store">Store</a>
             </li>
             <!-- 
             <li>
@@ -21,7 +21,7 @@
              -->
             <li>
             <li>
-                 <a href="StoreManager/"">Admin</a>
+                 <a href="/MusicStore/StoreManager"">Admin</a>
             </li>
         </ul>
     </div>

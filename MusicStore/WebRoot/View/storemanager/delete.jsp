@@ -12,9 +12,9 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="../Css/Site.css">
-	<script src="../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="../Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="/MusicStore/Css/Site.css">
+	<script src="/MusicStore/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/MusicStore/Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
 
   </head>
   
@@ -44,12 +44,12 @@
 	    </dl>
 	</div>
 	<p>
-	<form:form action="../StoreManager/Delete" modelAttribute="album" method="POST">
+	<form:form action="/MusicStore/StoreManager/Delete" modelAttribute="album" method="POST">
 		<form:hidden path="AlbumId"/>
 		<input type="submit" value="Delete"/>
 	</form:form>
-	    <a href="../StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
-	     <a href="../StoreManager">Back to List</a>
+	    <a href="/MusicStore/StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
+	     <a href="/MusicStore/StoreManager">Back to List</a>
 	</p>
     <jsp:include page="../footer.jsp"/>
   </body>

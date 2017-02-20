@@ -14,38 +14,38 @@
 	<link rel="stylesheet" type="text/css" href="/MusicStore/Css/Site.css">
 	<script src="/MusicStore/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="/MusicStore/Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
-
   </head>
   
   <body>
     <jsp:include page="../header.jsp" />
-    
-	<h2>Details</h2>
-	
-	<div>
-	    <h4>Album</h4>
-		<hr />
-	    <dl class="dl-horizontal">
-	        <dt>Artist:</dt>
-	        <dd>${album.getArtist().getName()}</dd>
-	        
-	        <dt>Genre:</dt>
-	        <dd>${album.getGenre().getName()}</dd>
-	        
-	        <dt>title</dt>
-	        <dd>${album.getTitle()}
-	        
-	        <dt>Price:</dt>
-	        <dd>${album.getPrice()}
-	    
-	        <dt>Album Art Url</dt>
-	        <dd>${album.getAlbumArtUrl()}</dd>
-	    </dl>
-	</div>
-	<p>
-	    <a href="/MusicStore/StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
-	     <a href="/MusicStore/StoreManager">Back to List</a>
-	</p>
+  
+    <div id="main">
+		<h2>Log On</h2>
+		<p>
+		    Please enter your user name and password. 
+		    <a href="/MusicStore/Account/Register">Register</a> if you don't have an account.
+		</p>
+		<form name='f' action='/MusicStore/j_spring_security_check' method='POST'>
+			 <div>
+		        <fieldset>
+		            <legend>Account Information</legend>
+		            <div class="editor-label">UserName:</div>
+		            <div class="editor-field">
+		                <input type='text' name='j_username' value=''/>
+		            </div>
+		
+		            <div class="editor-label">Password:</div>
+		            <div class="editor-field">
+		               <input type='password' name='j_password'/>
+		            </div>
+		            <p>
+		                <input name="submit" type="submit" value="Login"/>
+		            </p>
+		        </fieldset>
+    		</div>
+		</form>
+    </div>
+   
     <jsp:include page="../footer.jsp"/>
   </body>
 </html>

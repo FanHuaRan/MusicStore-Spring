@@ -1,5 +1,6 @@
 package pers.fhr.musicstore.controllers;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import pers.fhr.musicstore.viewmodels.AddressAndPaymentViewModel;
 
 @Controller
 @RequestMapping("/Checkout")
+@RolesAllowed({"Admin","User"}) 
 public class CheckoutController {
 	 @Autowired
 	 private  ICheckoutService CheckOutService =null;

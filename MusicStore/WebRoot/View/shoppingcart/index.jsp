@@ -11,9 +11,9 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="../Css/Site.css">
-	<script src="../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="../Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="/MusicStore/Css/Site.css">
+	<script src="/MusicStore/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/MusicStore/Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
 	<script type="text/javascript">
     $(function () {
         // Document.ready -> link up remove event handler
@@ -21,7 +21,7 @@
             var recordDelete = $(this).attr("data-id");
             if (recordDelete != '') {
                 // Perform the ajax post
-                $.post("../api/Shopping/RemoveFromCart"
+                $.post("/MusicStore/api/Shopping/RemoveFromCart"
                       , { id: recordDelete }
                       , function (data) {
                           // Successful requests get here
@@ -48,7 +48,7 @@
   
     <div id="main">
 		<h3><em>Review</em>Your carts:</h3>
-		<p class="button"><a href="/Checkout/AddressAndPayment">Check out>></a></p>
+		<p class="button"><a href="/MusicStore/Checkout">Check out>></a></p>
 		<div id="update-message"></div>
 		<table>
 		    <tr>
@@ -59,7 +59,7 @@
 		    </tr>
 		    <c:forEach items="${viewModel.getCartItems()}" var="item">
 		    	<tr id="row-@item.RecordId">
-		            <td><a href="/Store/Details?id=${item.getAlbum().getAlbumId()}">${item.getAlbum().getTitle()}</a></td>
+		            <td><a href="/MusicStore/Store/Details?id=${item.getAlbum().getAlbumId()}">${item.getAlbum().getTitle()}</a></td>
 		            <td> ${item.getAlbum().getPrice()} </td>
 		            <td id="item-count-${item.getRecordId()}">${item.getCount()}</td>
 		            <td><a href="#" class="RemoveLink" data-id="${item.getRecordId()}">remove from cart</a></td>
