@@ -57,6 +57,12 @@ public class ShopCartServiceClass implements IShopCartService {
 	@Override
 	public Integer StaticAlbumCount(String cartId) {
 		List<Cart> carts=cartDAO.findByCartId(cartId);
+		if(carts.size()==0){
+			return 0;
+		}
+		if(carts.size()==1){
+			return carts.get(0).getCount();
+		}
 		return carts.stream().map(p->p.getCount())
 		.reduce(0, (a, b) -> a + b);
 	}
@@ -64,6 +70,12 @@ public class ShopCartServiceClass implements IShopCartService {
 	@Override
 	public double StaticTotalMoney(String cartId) {
 		List<Cart> carts=cartDAO.findByCartId(cartId);
+		if(carts.size()==0){
+			return 0;
+		}
+		if(carts.size()==1){
+			return carts.get(0).getCount()*carts.get(0).getAlbum().getPrice();
+		}
 		return carts.stream().map(p->p.getAlbum().getPrice()*p.getCount())
 		.reduce((a, b) -> a + b).get();
 	}

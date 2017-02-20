@@ -1,5 +1,7 @@
 package pers.fhr.musicstore.controllers;
 
+import java.sql.Timestamp;
+
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import pers.fhr.musicstore.models.Cart;
 import pers.fhr.musicstore.models.Order;
 import pers.fhr.musicstore.models.ShopingCart;
 import pers.fhr.musicstore.services.ICheckoutService;
@@ -20,7 +23,6 @@ import pers.fhr.musicstore.viewmodels.AddressAndPaymentViewModel;
 
 @Controller
 @RequestMapping("/Checkout")
-@RolesAllowed({"Admin","User"}) 
 public class CheckoutController {
 	 @Autowired
 	 private  ICheckoutService CheckOutService =null;
@@ -34,10 +36,12 @@ public class CheckoutController {
 	 public String AddressAndPayment(HttpSession session, Model model,AddressAndPaymentViewModel addressAndPaymentViewModel){
          Order order = new Order();
          TryUpdateModel(order,addressAndPaymentViewModel);
+         ShopingCart cart = ShopingCart.GetCart(session);
+         order.setTotal(cart.GetTotal());
          UserDetails userDetails=getUserDetails();
          if(CheckOutService.AddressAndPayment(order, userDetails.getUsername(), addressAndPaymentViewModel.getPromoCode())){
-                 ShopingCart cart = ShopingCart.GetCart(session);
-                 cart.CreateOrder(order);
+                // ShopingCart cart = ShopingCart.GetCart(session);
+                 //cart.CreateOrder(order);
                  return "redirect:Complete?id="+order.getOrderId();
          }
          else{
@@ -45,25 +49,36 @@ public class CheckoutController {
              return"checkout/index";
          }
      }
+	 @RequestMapping("/Complete")
 	 public ModelAndView Complete(int id){
          // Validate customer owns this order
          boolean isValid = CheckOutService.OrderIsValid(id,getUserDetails().getUsername());
-         if (isValid)
-         {
+         if (isValid){
              return new ModelAndView("checkout/complete","id",id);
          }
-         else
-         {
+         else{
              return new ModelAndView("checkout/error");
          }
      }
 	private void TryUpdateModel(Order order, AddressAndPaymentViewModel addressAndPaymentViewModel) {
-		// TODO Auto-generated method stub
-		
+		order.setAddress(addressAndPaymentViewModel.getAddress());
+		order.setCity(addressAndPaymentViewModel.getCity());
+		order.setCountry(addressAndPaymentViewModel.getCountry());
+		order.setEmail(addressAndPaymentViewModel.getEmail());
+		order.setFirstName(addressAndPaymentViewModel.getFirstName());
+		order.setLastName(addressAndPaymentViewModel.getLastName());
+		order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+		order.setPhone(addressAndPaymentViewModel.getPhone());
+		order.setPostalCode(addressAndPaymentViewModel.getPostalCode());
+		order.setState(addressAndPaymentViewModel.getState());
 	}
 	private UserDetails getUserDetails() {
-		return (UserDetails) SecurityContextHolder.getContext()
+		Object user=SecurityContextHolder.getContext()
 			    .getAuthentication()
 			    .getPrincipal();
+		if(user.equals("anonymousUser")){
+			return null;
+		}
+		return (UserDetails)user;
 	}
 }

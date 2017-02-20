@@ -40,8 +40,7 @@ public class OrderServiceClass implements IOrderService {
 	@Override
 	public void InitialUpdateOrderAndCreatOrderDetails(Order order, List<Cart> cartItems) {
 		double orderTotal = 0;
-        for(Cart cart : cartItems)
-        {
+        for(Cart cart : cartItems){
         	Orderdetail orderDetail = new Orderdetail();
         	orderDetail.setAlbumId(cart.getAlbum().getAlbumId());
         	orderDetail.setOrderId(order.getOrderId());  

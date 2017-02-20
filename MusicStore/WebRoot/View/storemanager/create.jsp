@@ -18,7 +18,7 @@
   </head>
   
   <body>
-    <jsp:include page="../header.jsp" />
+    <%@ include file="../header.jsp" %>>
     <div id="main">
     <h2>Create</h2> 
        <form action="/MusicStore/StoreManager/Create" method="POST">
@@ -72,6 +72,6 @@
       <div><a href="/MusicStore/StoreManager">Back to List</a></div>
     </div>
       
-    <jsp:include page="../footer.jsp"/>
+    <%@ include file="../footer.jsp" %>
   </body>
 </html>

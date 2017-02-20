@@ -19,7 +19,7 @@
   </head>
   
   <body>
-    <jsp:include page="../header.jsp" />
+    <%@ include file="../header.jsp" %>
     
 	<h2>Delete</h2>
 	<h3>Are you sure you want to delete this?</h3>
@@ -51,6 +51,6 @@
 	    <a href="/MusicStore/StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
 	     <a href="/MusicStore/StoreManager">Back to List</a>
 	</p>
-    <jsp:include page="../footer.jsp"/>
+   <%@ include file="../footer.jsp" %>
   </body>
 </html>

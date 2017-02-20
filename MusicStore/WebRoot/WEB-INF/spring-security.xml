@@ -12,8 +12,10 @@
   <!-- 配置相关资源的访问权限 -->
   <security:http auto-config="true" use-expressions="true">
   	  <!-- 配置相关地址的访问权限 -->
+  	  <security:intercept-url pattern="/Checkout" access="hasRole('Admin') or hasRole('User')"/>
       <security:intercept-url pattern="/Checkout/*" access="hasRole('Admin') or hasRole('User')"/>
       <security:intercept-url pattern="/StoreManager/*" access="hasRole('Admin')"/>
+            <security:intercept-url pattern="/StoreManager" access="hasRole('Admin')"/>
       <!-- 配置登录页面和登录成功页面 如果不配置将会使用Spring Security自带的页面-->
   	   <security:form-login login-page="/Account/logOn" default-target-url="/index"    
         authentication-failure-url="/Account/logOn" always-use-default-target="true"/>  

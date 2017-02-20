@@ -18,7 +18,7 @@
   </head>
   
   <body>
-    <jsp:include page="../header.jsp" />
+    <%@ include file="../header.jsp" %>
     <h2>Index</h2>
 	<p><a href="/MusicStore/StoreManager/Create">Create New</a></p>
 	<table class="table">
@@ -38,11 +38,11 @@
 	        <td>
 	        	<a href="/MusicStore/StoreManager/Edit?id=${album.getAlbumId()}">Edit</a>
 	            <a href="/MusicStore/StoreManager/Details?id=${album.getAlbumId()}">Details</a>
-	        	<a href="/MisicStore/StoreManager/Delete?id=${album.getAlbumId()}">Delete</a>
+	        	<a href="/MusicStore/StoreManager/Delete?id=${album.getAlbumId()}">Delete</a>
 	        </td>
 	    </tr>
 	</c:forEach>
 	</table>
-    <jsp:include page="../footer.jsp"/>
+    <%@ include file="../footer.jsp" %>
   </body>
 </html>

@@ -17,8 +17,7 @@
   </head>
   
   <body>
-    <jsp:include page="../header.jsp" />
-  
+   <%@ include file="../header.jsp"%>
     <div id="main">
 		<h2>Log On</h2>
 		<p>
@@ -45,7 +44,6 @@
     		</div>
 		</form>
     </div>
-   
-    <jsp:include page="../footer.jsp"/>
+  <%@ include file="../footer.jsp"%>
   </body>
 </html>

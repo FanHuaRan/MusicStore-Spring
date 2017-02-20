@@ -53,23 +53,26 @@ public class ShoppingComponet implements IShoppingComponet {
 	@Override
 	public String GetCartId(HttpSession session) {
 		if (session.getAttribute(cartSessionKey)==null||session.getAttribute(cartSessionKey).equals("")){
-			/*UserDetails userDetails=GetUserDetails();
-            if (userDetails.getUsername()!=null&&!userDetails.getUsername().equals("")){
+			UserDetails userDetails=getUserDetails();
+            if (userDetails!=null&&userDetails.getUsername()!=null&&!userDetails.getUsername().equals("")){
             	session.setAttribute(cartSessionKey, userDetails.getUsername());
             }
             else{
-            */
             	UUID tempCartId=UUID.randomUUID();
             	session.setAttribute(cartSessionKey,tempCartId);
-           // }
+            }
         }
         return session.getAttribute(cartSessionKey).toString();
 	}
 
 	private UserDetails getUserDetails() {
-		return (UserDetails) SecurityContextHolder.getContext()
+		Object user=SecurityContextHolder.getContext()
 			    .getAuthentication()
 			    .getPrincipal();
+		if(user.equals("anonymousUser")){
+			return null;
+		}
+		return (UserDetails)user;
 	}
 
 	@Override

@@ -44,7 +44,7 @@
   </head>
   
   <body>
-    <jsp:include page="../header.jsp" />
+    <%@ include file="../header.jsp" %>
   
     <div id="main">
 		<h3><em>Review</em>Your carts:</h3>
@@ -72,6 +72,6 @@
 		</table>
     </div>
    
-    <jsp:include page="../footer.jsp"/>
+    <%@ include file="../footer.jsp" %>
   </body>
 </html>

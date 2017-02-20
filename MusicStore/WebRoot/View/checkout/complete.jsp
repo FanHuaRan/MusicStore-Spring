@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>  
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -18,18 +19,16 @@
   </head>
   
   <body>
-    <%@ include file="../header.jsp" %>
-    <h3>Browse Genres</h3>
-	<p>
-	    select from ${genres.size()} genres:
-	</p>
-	<ul>
-	<c:forEach items="${genres}" var="genre">
-		<li>
-		  <a href="/MusicStore/Store/Browse?genre=${genre.getName()}"> ${genre.getName()}</a>
-		</li>
-	</c:forEach>
-	</ul>
+     <%@ include file="../header.jsp" %>
+    <div id="promotion">
+	</div>
+	<div id="main">
+		<h2>Checkout Complete</h2>
+		<p>Thanks for your order! Your order number is: ${id}</p>
+		<p>
+		    How about shopping for some more music in our <a href="/MusicStore/index">Home</a>
+		</p>
+	</div>
     <%@ include file="../footer.jsp" %>
   </body>
 </html>

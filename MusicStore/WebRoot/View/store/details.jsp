@@ -11,14 +11,14 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="../Css/Site.css">
-	<script src="../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="../Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="/MusicStore/Css/Site.css">
+	<script src="/MusicStore/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/MusicStore/Scripts/modernizr-2.6.2.js" type="text/javascript"></script>
 
   </head>
   
   <body>
-    <jsp:include page="../header.jsp" />
+    <%@ include file="../header.jsp" %>
 	<h2>${album.getTitle()}</h2>
 	<p>
 	    <img alt="${album.getTitle()}" src="../${album.getAlbumArtUrl()}"/>
@@ -34,9 +34,9 @@
         <em>Price:</em> ${album.getPrice()}
     </p>
     <p class="button">
-    <a href="../ShoppingCart/AddToCart?id=${album.getAlbumId()}">AddToCart </a>
+    <a href="/MusicStore/ShoppingCart/AddToCart?id=${album.getAlbumId()}">AddToCart </a>
     </p>
 </div>
-    <jsp:include page="../footer.jsp"/>
+    <%@ include file="../footer.jsp" %>
   </body>
 </html>
