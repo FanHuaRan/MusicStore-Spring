@@ -58,7 +58,7 @@
 		        <th></th>
 		    </tr>
 		    <c:forEach items="${viewModel.getCartItems()}" var="item">
-		    	<tr id="row-@item.RecordId">
+		    	<tr id="row-${item.RecordId}">
 		            <td><a href="/MusicStore/Store/Details?id=${item.getAlbum().getAlbumId()}">${item.getAlbum().getTitle()}</a></td>
 		            <td> ${item.getAlbum().getPrice()} </td>
 		            <td id="item-count-${item.getRecordId()}">${item.getCount()}</td>

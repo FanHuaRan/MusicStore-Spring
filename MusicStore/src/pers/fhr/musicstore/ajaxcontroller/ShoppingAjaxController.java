@@ -20,28 +20,9 @@ import pers.fhr.musicstore.viewmodels.ShoppingCartRemoveViewModel;
 public class ShoppingAjaxController {
 	 @Autowired
 	 private final IShopCartService shopCartService =null;
-	 @Autowired
-	 private final IAlbumService albumService =null;
-	 /*
 	 @ResponseBody 
 	 @RequestMapping(value="/RemoveFromCart",
 						method=RequestMethod.POST,
-						produces=MediaType.APPLICATION_JSON_VALUE)
-	  public ShoppingCartRemoveViewModel RemoveFromCart(HttpSession session, int id){
-	        ShopingCart cart = ShopingCart.GetCart(session);
-	        String albumName = shopCartService.FindCartAlbumTitle(id);
-	        int itemCount = cart.RemoveFromCart(id);
-	        ShoppingCartRemoveViewModel results = new ShoppingCartRemoveViewModel();
-	        results.setMessage(HtmlUtils.htmlEscape(albumName)+  "has been removed from your shopping cart.");
-	        results.setCartTotal(cart.GetTotal());
-	        results.setCartCount(cart.GetCount());
-	        results.setItemCount(itemCount);
-	        results.setDeleteId(id);
-	        return results;
-	    }
-	 */
-	 @ResponseBody 
-	 @RequestMapping(value="/RemoveFromCart",
 						produces=MediaType.APPLICATION_JSON_VALUE)
 	  public ShoppingCartRemoveViewModel RemoveFromCart(HttpSession session, int id){
 	        ShopingCart cart = ShopingCart.GetCart(session);
