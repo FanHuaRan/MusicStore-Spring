@@ -26,16 +26,16 @@
                       , function (data) {
                           // Successful requests get here
                           // Update the page elements
-                          console.warn(data);
-                          if (data.ItemCount == 0) {
-                              $('#row-' + data.DeleteId).fadeOut('slow');
+                          console.log(data);
+                          if (data.itemCount == 0) {
+                              $('#row-' + data.deleteId).fadeOut('slow');
                           }
                           else {
-                              $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                              $('#item-count-' + data.deleteId).text(data.itemCount);
                           }
-                          $('#cart-total').text(data.CartTotal);
-                          $('#update-message').text(data.Message);
-                          $('#cart-status').text('Cart (' + data.CartCount + ')');
+                          $('#cart-total').text(data.cartTotal);
+                          $('#update-message').text(data.message);
+                          $('#cart-status').text('Cart (' + data.cartCount + ')');
                       });
             }
         });
@@ -58,7 +58,7 @@
 		        <th></th>
 		    </tr>
 		    <c:forEach items="${viewModel.getCartItems()}" var="item">
-		    	<tr id="row-${item.RecordId}">
+		    	<tr id="row-${item.getRecordId()}">
 		            <td><a href="/MusicStore/Store/Details?id=${item.getAlbum().getAlbumId()}">${item.getAlbum().getTitle()}</a></td>
 		            <td> ${item.getAlbum().getPrice()} </td>
 		            <td id="item-count-${item.getRecordId()}">${item.getCount()}</td>

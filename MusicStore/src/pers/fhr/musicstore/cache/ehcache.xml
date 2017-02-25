@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ehcache配置文件 -->
+<ehcache>
+	 <diskStore path="java.io.tmpdir"/>
+	 <defaultCache maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"/>
+	<cache name="albumDAOCache"
+		maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"/>
+	<!-- 
+	<cache name="artistDAOCache"
+			maxBytesLocalHeap="50m"
+			timeToLiveSeconds="100">
+	</cache>
+	<cache name="cartDAOCache"
+			maxBytesLocalHeap="50m"
+			timeToLiveSeconds="100">
+	</cache>
+	<cache name="genreDAOCache"
+			maxBytesLocalHeap="50m"
+			timeToLiveSeconds="100">
+	</cache>
+	<cache name="orderDAOCache"
+			maxBytesLocalHeap="50m"
+			timeToLiveSeconds="100">
+	</cache>
+	<cache name="orderdetailDAOCache"
+			maxBytesLocalHeap="50m"
+			timeToLiveSeconds="100">
+	</cache>
+	 -->
+</ehcache>

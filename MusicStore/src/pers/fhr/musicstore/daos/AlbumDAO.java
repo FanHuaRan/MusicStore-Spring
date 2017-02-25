@@ -1,8 +1,6 @@
 package pers.fhr.musicstore.daos;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.hibernate.LockMode;
 import org.hibernate.Query;
@@ -11,6 +9,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import pers.fhr.musicstore.models.Album;
@@ -34,32 +35,29 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public static final String PRICE = "price";
 	public static final String ALBUM_ART_URL = "albumArtUrl";
 	@SuppressWarnings("unchecked")
+	//@Cacheable("albumDAOCache")
 	public List<Album> getAlbumsOrderByOrderDetailsTopCount(int count){
 		Session session=getSession();
 		Query query=session.createQuery("from Album a order by a.orderdetails.size desc").setMaxResults(count);
 		List<Album> albums=(List<Album>)query.list();
-		//List<Album> albums=findAll();
-		/*
-		albums.stream().sorted((p1,p2)->
-		((Integer)p1.getOrderdetails().size()).compareTo(((Integer)p2.getOrderdetails().size())))
-		.limit(count)
-		.collect(Collectors.toList());
-		*/
 		return albums;
 	}
-	public void save(Album transientInstance) {
+	//@CachePut(value="albumDAOCache",key="@result.albumId")
+	public Album save(Album transientInstance) {
 		log.debug("saving Album instance");
 		try {
 			Transaction transaction=getSession().beginTransaction();
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
-	public void update(Album transientInstance) {
+	//@CachePut(value="albumDAOCache",key="@result.albumId")
+	public Album update(Album transientInstance) {
 		log.debug("updateing Album instance");
 		try {
 			getSession().clear();
@@ -67,11 +65,13 @@ public class AlbumDAO extends BaseHibernateDAO {
 			getSession().update(transientInstance);
 			transaction.commit();
 			log.debug("update successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;
 		}
 	}
+	//@CacheEvict(value="albumDAOCache",key="#persistentInstance.albumId")
 	public void delete(Album persistentInstance) {
 		log.debug("deleting Album instance");
 		try {
@@ -84,7 +84,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	//@Cacheable("albumDAOCache")
 	public Album findById(java.lang.Integer id) {
 		log.debug("getting Album instance with id: " + id);
 		try {
@@ -95,7 +95,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	//@Cacheable("albumDAOCache")
 	public List findByExample(Album instance) {
 		log.debug("finding Album instance by example");
 		try {
@@ -108,7 +108,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	//@Cacheable("albumDAOCache")
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Album instance with property: " + propertyName + ", value: " + value);
 		try {
@@ -121,19 +121,19 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	//@Cacheable("albumDAOCache")
 	public List findByTitle(Object title) {
 		return findByProperty(TITLE, title);
 	}
-
+	//@Cacheable("albumDAOCache")
 	public List findByPrice(Object price) {
 		return findByProperty(PRICE, price);
 	}
-
+	//@Cacheable("albumDAOCache")
 	public List findByAlbumArtUrl(Object albumArtUrl) {
 		return findByProperty(ALBUM_ART_URL, albumArtUrl);
 	}
-
+	//@Cacheable("albumDAOCache")
 	public List findAll() {
 		log.debug("finding all Album instances");
 		try {
@@ -145,7 +145,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-
+	//@CachePut(value="albumDAOCache",key="@result.albumId")
 	public Album merge(Album detachedInstance) {
 		log.debug("merging Album instance");
 		try {
