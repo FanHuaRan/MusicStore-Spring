@@ -87,4 +87,17 @@
     <servlet-name>springweb</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <!-- 配置错误页面 -->
+  <error-page>
+    <error-code>403</error-code>
+    <location>/Status/403</location>
+  </error-page>
+  <error-page>
+	    <error-code>404</error-code>
+	    <location>/Status/404</location>
+  </error-page>
+  <error-page>
+	    <error-code>500</error-code>
+	    <location>/Status/500</location>
+  </error-page>
 </web-app>
