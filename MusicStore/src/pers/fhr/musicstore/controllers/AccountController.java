@@ -16,7 +16,6 @@ public class AccountController {
 	private IUserService userService=null;
 	@RequestMapping("/logOn")
 	public String logOn(){
-		
 		return "account/logon";
 	}
 	@RequestMapping("/Register")

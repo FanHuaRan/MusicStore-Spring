@@ -20,8 +20,8 @@
   	   <security:form-login login-page="/Account/logOn" default-target-url="/index"    
         authentication-failure-url="/Account/logOn" always-use-default-target="true"/>  
    	   <security:logout invalidate-session="true" 
-   	  				    logout-success-url="/index"
-						logout-url="//Account/logOut"/>
+   	  				    logout-success-url="/Account/logOn"
+						logout-url="/Account/logOut"/>
        <!-- 同一时间内允许同一账号保持4个在线,error-if-maximum-exceeded="true"表示第第四个以后的登不进去 -->
 	  <security:session-management>
 			<security:concurrency-control max-sessions="4" error-if-maximum-exceeded="true"/>
