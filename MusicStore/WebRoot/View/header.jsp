@@ -22,7 +22,7 @@
             </security:authorize>
             <!-- 不具有 Admin,User的权限则显示登录链接-->
            <security:authorize ifNotGranted="Admin,User">
-           		<li><a href="/MusicStore/Account/logOn">Log</a></li>
+           		<li><a href="/MusicStore/Account/logOn">LogIn</a></li>
            </security:authorize>
         </ul>
     </div>
