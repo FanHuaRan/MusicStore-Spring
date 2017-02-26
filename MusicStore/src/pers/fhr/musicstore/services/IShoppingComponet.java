@@ -10,7 +10,6 @@ import pers.fhr.musicstore.models.Order;
 
 public interface IShoppingComponet {
 	 void addToCart(Album album, String shoppingCartId);
-     int createOrder(Order order, String shoppingCartId);
      void emptyCart(String shoppingCartId);
      String getCartId(HttpSession session);
      List<Cart> getCartItems(String shoppingCartId);

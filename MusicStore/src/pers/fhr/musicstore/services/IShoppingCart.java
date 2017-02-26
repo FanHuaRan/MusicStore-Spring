@@ -11,7 +11,6 @@ public interface IShoppingCart {
     void emptyCart();
     int getCount();
     double getTotal();
-    int createOrder(Order order);
     String getCartId(HttpSession session);
     void migrateCart(String userName);
 }

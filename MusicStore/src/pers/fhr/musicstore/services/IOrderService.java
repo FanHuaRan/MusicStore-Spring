@@ -9,5 +9,5 @@ public interface IOrderService {
 	  boolean orderIsExist(int orderId, String userName);
       Order createOrder(Order order);
       void editOrder(Order order);
-      void initialUpdateOrderAndCreatOrderDetails(Order order, List<Cart> cartItems);
+      void creatOrderDetails(Order order, List<Cart> cartItems);
 }

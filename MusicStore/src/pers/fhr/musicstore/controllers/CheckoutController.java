@@ -39,11 +39,8 @@ public class CheckoutController {
          Order order = new Order();
          TryUpdateModel(order,addressAndPaymentViewModel);
          ShopingCart cart = ShopingCart.GetCart(session);
-         order.setTotal(cart.getTotal());
          UserDetails userDetails=getUserDetails();
-         if(CheckOutService.addressAndPayment(order, userDetails.getUsername(), addressAndPaymentViewModel.getPromoCode())){
-                // ShopingCart cart = ShopingCart.GetCart(session);
-                 //cart.CreateOrder(order);
+         if(CheckOutService.addressAndPayment(order, cart,userDetails.getUsername(),addressAndPaymentViewModel.getPromoCode())){
                  return "redirect:Complete?id="+order.getOrderId();
          }
          else{

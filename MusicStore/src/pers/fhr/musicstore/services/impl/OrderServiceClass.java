@@ -38,19 +38,19 @@ public class OrderServiceClass implements IOrderService {
 	}
 
 	@Override
-	public void initialUpdateOrderAndCreatOrderDetails(Order order, List<Cart> cartItems) {
-		double orderTotal = 0;
+	public void creatOrderDetails(Order order, List<Cart> cartItems) {
+		//double orderTotal = 0;
         for(Cart cart : cartItems){
         	Orderdetail orderDetail = new Orderdetail();
         	orderDetail.setAlbumId(cart.getAlbum().getAlbumId());
         	orderDetail.setOrderId(order.getOrderId());  
         	orderDetail.setUnitPrice(cart.getAlbum().getPrice());
         	orderDetail.setQuantity(cart.getCount());
-            orderTotal += (cart.getCount() * cart.getAlbum().getPrice());
+           // orderTotal += (cart.getCount() * cart.getAlbum().getPrice());
             orderdetailDAO.save(orderDetail);
         }
-        order.setTotal(orderTotal);
-        orderDao.update(order);
+       // order.setTotal(orderTotal);
+       // orderDao.update(order);
 	}
 
 }

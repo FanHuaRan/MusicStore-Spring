@@ -35,15 +35,6 @@ public class ShoppingComponet implements IShoppingComponet {
              shopCartService.editCart(cartItem);
          }
 	}
-
-	@Override
-	public int createOrder(Order order, String shoppingCartId) {
-		  List<Cart> cartItems = getCartItems(shoppingCartId);
-          orderService.initialUpdateOrderAndCreatOrderDetails(order, cartItems);
-          emptyCart(shoppingCartId);
-          return order.getOrderId();
-	}
-
 	@Override
 	public void emptyCart(String shoppingCartId) {
 		List<Cart> cartItems = shopCartService.findCartItemsByCartId(shoppingCartId);

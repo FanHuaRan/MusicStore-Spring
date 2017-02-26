@@ -63,11 +63,6 @@ public class ShopingCart implements IShoppingCart {
 	}
 
 	@Override
-	public int createOrder(Order order) {
-		 return shoppingComponet.createOrder(order,shoppingCartId);
-	}
-
-	@Override
 	public String getCartId(HttpSession session) {
 		return shoppingComponet.getCartId(session);
 	}
