@@ -13,32 +13,32 @@ public class AlbumServiceClass implements IAlbumService {
 	@Autowired
 	private AlbumDAO  albumDAO=null;
 	@Override
-	public List<Album> GetTopSellingAlbums(int count) {
+	public List<Album> getTopSellingAlbums(int count) {
 		return albumDAO.getAlbumsOrderByOrderDetailsTopCount(count);
 	}
 
 	@Override
-	public Album FindAlbumById(int id) {
+	public Album findAlbumById(int id) {
 		return albumDAO.findById(id);
 	}
 
 	@Override
-	public List<Album> FindAlbums() {
+	public List<Album> findAlbums() {
 		return albumDAO.findAll();
 	}
 
 	@Override
-	public void CreateAlbum(Album album) {
+	public void createAlbum(Album album) {
 		albumDAO.save(album);
 	}
 
 	@Override
-	public void EditAlbum(Album album) {
+	public void editAlbum(Album album) {
 		albumDAO.update(album);
 	}
 
 	@Override
-	public void DeleteAlbum(int id) {
+	public void deleteAlbum(int id) {
 		 Album album=albumDAO.findById(id);
 		 if(album!=null){
 			 albumDAO.delete(album);

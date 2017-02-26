@@ -6,12 +6,12 @@ import pers.fhr.musicstore.models.Album;
 import pers.fhr.musicstore.models.Order;
 
 public interface IShoppingCart {
-	void AddToCart(Album album);
-    int RemoveFromCart(int recordId);
-    void EmptyCart();
-    int GetCount();
-    double GetTotal();
-    int CreateOrder(Order order);
-    String GetCartId(HttpSession session);
-    void MigrateCart(String userName);
+	void addToCart(Album album);
+    int removeFromCart(int recordId);
+    void emptyCart();
+    int getCount();
+    double getTotal();
+    int createOrder(Order order);
+    String getCartId(HttpSession session);
+    void migrateCart(String userName);
 }

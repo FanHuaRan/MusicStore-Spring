@@ -13,13 +13,13 @@ public class GenreServiceClass implements IGenreService {
 	@Autowired
 	private GenreDAO genreDAO=null;
 	@Override
-	public Genre FindGenreByName(String genreName) {
+	public Genre findGenreByName(String genreName) {
 		List<Genre> genres=genreDAO.findByName(genreName);
 		return genres.size()==0?null:genres.get(0);
 	}
 
 	@Override
-	public List<Genre> FindGenres() {
+	public List<Genre> findGenres() {
 		return genreDAO.findAll();
 	}
 

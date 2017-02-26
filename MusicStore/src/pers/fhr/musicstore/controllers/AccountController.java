@@ -1,5 +1,6 @@
 package pers.fhr.musicstore.controllers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import pers.fhr.musicstore.viewmodels.RegisterViewModel;
 @Controller
 @RequestMapping("/Account")
 public class AccountController {
+    private final static Logger logger = Logger.getLogger(AccountController.class);
 	@Autowired
 	private IUserService userService=null;
 	@RequestMapping("/logOn")
@@ -19,14 +21,14 @@ public class AccountController {
 		return "account/logon";
 	}
 	@RequestMapping("/Register")
-    public String Register(Model model){
+    public String register(Model model){
 		RegisterViewModel registerViewModel=new RegisterViewModel();
 		model.addAttribute("registerViewModel", registerViewModel);
         return "account/register";
     }
 	@RequestMapping(value="/Register",
 			method=RequestMethod.POST)
-	public String Register(RegisterViewModel registerViewModel){
+	public String register(RegisterViewModel registerViewModel){
 		if(registerViewModel.getName().equals("")||registerViewModel.getPassword().equals("")){
 			return "redirect:Register";
 		}
@@ -35,5 +37,5 @@ public class AccountController {
 		}
 		return "redirect:logOn";
 	}
-
+	
 }

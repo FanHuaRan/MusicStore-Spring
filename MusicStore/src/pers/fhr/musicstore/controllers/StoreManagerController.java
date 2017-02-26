@@ -2,12 +2,10 @@ package pers.fhr.musicstore.controllers;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,7 @@ import pers.fhr.musicstore.services.IGenreService;
 @Controller
 @RequestMapping("/StoreManager")
 public class StoreManagerController {
-	private static Logger logger = Logger.getLogger(StoreManagerController.class);
+	private static final Logger logger = Logger.getLogger(StoreManagerController.class);
 	@Autowired
 	private IArtistService artistService=null;
 	@Autowired
@@ -34,7 +32,7 @@ public class StoreManagerController {
      private  IGenreService genreService = null;
 	@RequestMapping()
 	public ModelAndView index(){
-		List<Album> albums=albumService.FindAlbums();
+		List<Album> albums=albumService.findAlbums();
 		return new ModelAndView("storemanager/index","albums",albums);
 	}
 	@RequestMapping("/Details")
@@ -42,7 +40,7 @@ public class StoreManagerController {
 		if(id==null){
 			throw new AlbumNotFoundException();
 		}
-		Album album = albumService.FindAlbumById(id);
+		Album album = albumService.findAlbumById(id);
         if (album == null){
         	throw new AlbumNotFoundException();
          }
@@ -51,7 +49,7 @@ public class StoreManagerController {
 	@RequestMapping("/Create")
 	public String create(HttpServletRequest request,Model model){
 		List<Artist> artists=artistService.findArtists();
-		List<Genre> genres=genreService.FindGenres();
+		List<Genre> genres=genreService.findGenres();
 		model.addAttribute("artists",artists);
 		model.addAttribute("genres",genres);
 		return "storemanager/create";
@@ -60,7 +58,7 @@ public class StoreManagerController {
 					method=RequestMethod.POST)
 	public String create(Album album){
 		try{
-			albumService.CreateAlbum(album);
+			albumService.createAlbum(album);
 	        return "redirect:/StoreManager";
 		}catch(Exception e){
 			logger.error(e.getMessage());
@@ -72,12 +70,12 @@ public class StoreManagerController {
 		if (id == null){
             throw new AlbumNotFoundException();
         }
-        Album album = albumService.FindAlbumById(id);
+        Album album = albumService.findAlbumById(id);
         if (album == null){
              throw new AlbumNotFoundException();
         }
 		List<Artist> artists=artistService.findArtists();
-		List<Genre> genres=genreService.FindGenres();
+		List<Genre> genres=genreService.findGenres();
 		model.addAttribute("artists",artists);
 		model.addAttribute("genres",genres);
 		model.addAttribute("album",album);
@@ -87,7 +85,7 @@ public class StoreManagerController {
 			method=RequestMethod.POST)
 	public String edit(Album album){
 		try{
-			albumService.EditAlbum(album);
+			albumService.editAlbum(album);
 		    return "redirect:/StoreManager";
 		}catch(Exception e){
 			logger.error(e.getMessage());
@@ -99,7 +97,7 @@ public class StoreManagerController {
         if (id == null){
             throw new AlbumNotFoundException();
         }
-        Album album = albumService.FindAlbumById(id);
+        Album album = albumService.findAlbumById(id);
         if (album == null){
              throw new AlbumNotFoundException();
         }
@@ -110,7 +108,7 @@ public class StoreManagerController {
 			method=RequestMethod.POST)
     public String DeleteConfirmed(Album album)
     {
-        albumService.DeleteAlbum(album.getAlbumId());
+        albumService.deleteAlbum(album.getAlbumId());
         //采用重定向
         return "redirect:/StoreManager";
     }

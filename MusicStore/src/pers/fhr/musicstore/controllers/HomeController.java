@@ -14,12 +14,12 @@ import pers.fhr.musicstore.services.IAlbumService;
 @Controller
 @RequestMapping("/index")
 public class HomeController {
-	private static Logger logger = Logger.getLogger(HomeController.class);
+	private final static Logger logger = Logger.getLogger(HomeController.class);
 	@Autowired
 	private IAlbumService albumService=null;
 	@RequestMapping()
 	ModelAndView home(){
-		List<Album> albums = albumService.GetTopSellingAlbums(5);
+		List<Album> albums = albumService.getTopSellingAlbums(5);
 		logger.error("Album count:"+albums.size());
 		return new ModelAndView("home/index","albums",albums);
 	}

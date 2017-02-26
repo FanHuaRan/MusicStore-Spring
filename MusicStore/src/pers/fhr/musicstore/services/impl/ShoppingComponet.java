@@ -25,33 +25,33 @@ public class ShoppingComponet implements IShoppingComponet {
 	  //存在Session中的键值 保存ShoppingCartId
     private  final  String cartSessionKey = "CartId";
 	@Override
-	public void AddToCart(Album album, String shoppingCartId) {
-		 Cart cartItem = shopCartService.FindCartByCartIdAndAlbumId(shoppingCartId, album.getAlbumId());
+	public void addToCart(Album album, String shoppingCartId) {
+		 Cart cartItem = shopCartService.findCartByCartIdAndAlbumId(shoppingCartId, album.getAlbumId());
          if (cartItem == null){
-             shopCartService.InitialAndCreatCart(album, shoppingCartId);
+             shopCartService.initialAndCreatCart(album, shoppingCartId);
          }
          else{
              cartItem.setCount(cartItem.getCount()+1);
-             shopCartService.EditCart(cartItem);
+             shopCartService.editCart(cartItem);
          }
 	}
 
 	@Override
-	public int CreateOrder(Order order, String shoppingCartId) {
-		  List<Cart> cartItems = GetCartItems(shoppingCartId);
-          orderService.InitialUpdateOrderAndCreatOrderDetails(order, cartItems);
-          EmptyCart(shoppingCartId);
+	public int createOrder(Order order, String shoppingCartId) {
+		  List<Cart> cartItems = getCartItems(shoppingCartId);
+          orderService.initialUpdateOrderAndCreatOrderDetails(order, cartItems);
+          emptyCart(shoppingCartId);
           return order.getOrderId();
 	}
 
 	@Override
-	public void EmptyCart(String shoppingCartId) {
-		List<Cart> cartItems = shopCartService.FindCartItemsByCartId(shoppingCartId);
-        shopCartService.DeleteCart(cartItems);
+	public void emptyCart(String shoppingCartId) {
+		List<Cart> cartItems = shopCartService.findCartItemsByCartId(shoppingCartId);
+        shopCartService.deleteCart(cartItems);
 	}
 
 	@Override
-	public String GetCartId(HttpSession session) {
+	public String getCartId(HttpSession session) {
 		if (session.getAttribute(cartSessionKey)==null||session.getAttribute(cartSessionKey).equals("")){
 			UserDetails userDetails=getUserDetails();
             if (userDetails!=null&&userDetails.getUsername()!=null&&!userDetails.getUsername().equals("")){
@@ -76,41 +76,41 @@ public class ShoppingComponet implements IShoppingComponet {
 	}
 
 	@Override
-	public List<Cart> GetCartItems(String shoppingCartId) {
-		 return shopCartService.FindCartItemsByCartId(shoppingCartId);
+	public List<Cart> getCartItems(String shoppingCartId) {
+		 return shopCartService.findCartItemsByCartId(shoppingCartId);
 	}
 
 	@Override
-	public int GetCount(String shoppingCartId) {
-        return  shopCartService.StaticAlbumCount(shoppingCartId);
+	public int getCount(String shoppingCartId) {
+        return  shopCartService.staticAlbumCount(shoppingCartId);
 	}
 
 	@Override
-	public double GetTotal(String shoppingCartId) {
-		 return  shopCartService.StaticTotalMoney(shoppingCartId);
+	public double getTotal(String shoppingCartId) {
+		 return  shopCartService.staticTotalMoney(shoppingCartId);
 	}
 
 	@Override
-	public void MigrateCart(String ShoppingCartId, String userName) {
-		List<Cart> shoppingCarts = shopCartService.FindCartItemsByCartId(ShoppingCartId);
+	public void migrateCart(String ShoppingCartId, String userName) {
+		List<Cart> shoppingCarts = shopCartService.findCartItemsByCartId(ShoppingCartId);
 		shoppingCarts.forEach(cart->{
 			cart.setCartId(userName);
-			shopCartService.EditCart(cart);
+			shopCartService.editCart(cart);
 		});
 	}
 
 	@Override
-	public int RemoveFromCart(String shoppingCartId, int recordId) {
-		 Cart cartItem = shopCartService.FindCartByCartIdAndRecordId(shoppingCartId, recordId);
+	public int removeFromCart(String shoppingCartId, int recordId) {
+		 Cart cartItem = shopCartService.findCartByCartIdAndRecordId(shoppingCartId, recordId);
          int itemCount = 0;
          if (cartItem != null){
              if (cartItem.getCount() > 1){
                  cartItem.setCount(cartItem.getCount()-1);
                  itemCount = cartItem.getCount();
-                 shopCartService.EditCart(cartItem);
+                 shopCartService.editCart(cartItem);
              }
              else{
-                 shopCartService.DeleteCart(cartItem);
+                 shopCartService.deleteCart(cartItem);
              }
          }
          return itemCount;

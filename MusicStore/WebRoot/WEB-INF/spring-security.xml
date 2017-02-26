@@ -17,8 +17,11 @@
       <security:intercept-url pattern="/StoreManager/*" access="hasRole('Admin')"/>
             <security:intercept-url pattern="/StoreManager" access="hasRole('Admin')"/>
       <!-- 配置登录页面和登录成功页面 如果不配置将会使用Spring Security自带的页面-->
-  	   <security:form-login login-page="/Account/logOn" default-target-url="/index"    
-        authentication-failure-url="/Account/logOn" always-use-default-target="true"/>  
+  	   <security:form-login login-page="/Account/logOn"   
+        					authentication-failure-url="/Account/logOn" 
+        					always-use-default-target="true"
+        					authentication-success-handler-ref="authenticationSuccessHandler"  />  
+        					<!--我们自己配置登录成功的代理 所以这个属性不需要了default-target-url="/index" --> 
    	   <security:logout invalidate-session="true" 
    	  				    logout-success-url="/Account/logOn"
 						logout-url="/Account/logOut"/>
@@ -34,4 +37,9 @@
        <!-- 	<security:password-encoder hash="md5" base64="false" /> -->
         </security:authentication-provider>
    </security:authentication-manager>
+   <!-- 配置登录成功后的处理器 -->
+   <bean id="authenticationSuccessHandler" class="pers.fhr.musicstore.component.SimpleLoginSuccessHandler">  
+    <property name="defaultTargetUrl" value="/index"></property>  
+    <property name="forwardToDestination" value="true"></property>  
+</bean>
 </beans>

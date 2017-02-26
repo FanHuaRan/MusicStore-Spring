@@ -18,7 +18,7 @@ public class OrderServiceClass implements IOrderService {
 	@Autowired
 	private OrderdetailDAO orderdetailDAO=null;
 	@Override
-	public boolean OrderIsExist(int orderId, String userName) {
+	public boolean orderIsExist(int orderId, String userName) {
 		Order order=orderDao.findById(orderId);
 		if(order==null||!order.getUsername().equals(userName)){
 			return false;
@@ -27,18 +27,18 @@ public class OrderServiceClass implements IOrderService {
 	}
 
 	@Override
-	public Order CreateOrder(Order order) {
+	public Order createOrder(Order order) {
 		orderDao.save(order);
 		return order;
 	}
 
 	@Override
-	public void EditOrder(Order order) {
+	public void editOrder(Order order) {
 		orderDao.update(order);
 	}
 
 	@Override
-	public void InitialUpdateOrderAndCreatOrderDetails(Order order, List<Cart> cartItems) {
+	public void initialUpdateOrderAndCreatOrderDetails(Order order, List<Cart> cartItems) {
 		double orderTotal = 0;
         for(Cart cart : cartItems){
         	Orderdetail orderDetail = new Orderdetail();

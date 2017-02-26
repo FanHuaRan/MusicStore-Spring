@@ -5,6 +5,6 @@ import java.util.List;
 import pers.fhr.musicstore.models.Genre;
 
 public interface IGenreService {
-	 Genre FindGenreByName(String genreName);
-     List<Genre> FindGenres();
+	 Genre findGenreByName(String genreName);
+     List<Genre> findGenres();
 }

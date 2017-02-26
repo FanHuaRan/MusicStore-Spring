@@ -6,14 +6,14 @@ import pers.fhr.musicstore.models.Album;
 import pers.fhr.musicstore.models.Cart;
 
 public interface IShopCartService {
-	String FindCartAlbumTitle(int cartRecordId);
-    Cart FindCartByCartIdAndAlbumId(String cartId, int albumId);
-    Cart FindCartByCartIdAndRecordId(String cartId, int recordId);
-    List<Cart> FindCartItemsByCartId(String cartId);
-    void DeleteCart(List<Cart> carts);
-    void DeleteCart(Cart cart);
-    Integer StaticAlbumCount(String cartId);
-    double StaticTotalMoney(String cartId);
-    void InitialAndCreatCart(Album album, String shoppingCartId);
-    void EditCart(Cart cart);
+	String findCartAlbumTitle(int cartRecordId);
+    Cart findCartByCartIdAndAlbumId(String cartId, int albumId);
+    Cart findCartByCartIdAndRecordId(String cartId, int recordId);
+    List<Cart> findCartItemsByCartId(String cartId);
+    void deleteCart(List<Cart> carts);
+    void deleteCart(Cart cart);
+    Integer staticAlbumCount(String cartId);
+    double staticTotalMoney(String cartId);
+    void initialAndCreatCart(Album album, String shoppingCartId);
+    void editCart(Cart cart);
 }

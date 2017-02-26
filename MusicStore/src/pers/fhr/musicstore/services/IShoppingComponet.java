@@ -9,14 +9,14 @@ import pers.fhr.musicstore.models.Cart;
 import pers.fhr.musicstore.models.Order;
 
 public interface IShoppingComponet {
-	 void AddToCart(Album album, String shoppingCartId);
-     int CreateOrder(Order order, String shoppingCartId);
-     void EmptyCart(String shoppingCartId);
-     String GetCartId(HttpSession session);
-     List<Cart> GetCartItems(String shoppingCartId);
-     int GetCount(String shoppingCartId);
-     double GetTotal(String shoppingCartId);
-     void MigrateCart(String ShoppingCartId, String userName);
-     int RemoveFromCart(String shoppingCartId, int recordId);
+	 void addToCart(Album album, String shoppingCartId);
+     int createOrder(Order order, String shoppingCartId);
+     void emptyCart(String shoppingCartId);
+     String getCartId(HttpSession session);
+     List<Cart> getCartItems(String shoppingCartId);
+     int getCount(String shoppingCartId);
+     double getTotal(String shoppingCartId);
+     void migrateCart(String ShoppingCartId, String userName);
+     int removeFromCart(String shoppingCartId, int recordId);
      String getCartSessionKey();
 }

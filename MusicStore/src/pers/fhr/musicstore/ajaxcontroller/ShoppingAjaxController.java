@@ -26,12 +26,12 @@ public class ShoppingAjaxController {
 						produces=MediaType.APPLICATION_JSON_VALUE)
 	  public ShoppingCartRemoveViewModel RemoveFromCart(HttpSession session, int id){
 	        ShopingCart cart = ShopingCart.GetCart(session);
-	        String albumName = shopCartService.FindCartAlbumTitle(id);
-	        int itemCount = cart.RemoveFromCart(id);
+	        String albumName = shopCartService.findCartAlbumTitle(id);
+	        int itemCount = cart.removeFromCart(id);
 	        ShoppingCartRemoveViewModel results = new ShoppingCartRemoveViewModel();
 	        results.setMessage(HtmlUtils.htmlEscape(albumName)+  "has been removed from your shopping cart.");
-	        results.setCartTotal(cart.GetTotal());
-	        results.setCartCount(cart.GetCount());
+	        results.setCartTotal(cart.getTotal());
+	        results.setCartCount(cart.getCount());
 	        results.setItemCount(itemCount);
 	        results.setDeleteId(id);
 	        return results;

@@ -15,7 +15,7 @@ public class ShopCartServiceClass implements IShopCartService {
 	@Autowired
 	private CartDAO cartDAO=null;
 	@Override
-	public String FindCartAlbumTitle(int cartRecordId) {
+	public String findCartAlbumTitle(int cartRecordId) {
 		Cart cart=cartDAO.findById(cartRecordId);
 		if(cart==null){
 			return null;
@@ -24,13 +24,13 @@ public class ShopCartServiceClass implements IShopCartService {
 	}
 
 	@Override
-	public Cart FindCartByCartIdAndAlbumId(String cartId, int albumId) {
+	public Cart findCartByCartIdAndAlbumId(String cartId, int albumId) {
 		List<Cart> carts=cartDAO.FindCartByCartIdAndAlbumId(cartId, albumId);
 		return carts.size()==0?null:carts.get(0);
 	}
 
 	@Override
-	public Cart FindCartByCartIdAndRecordId(String cartId, int recordId) {
+	public Cart findCartByCartIdAndRecordId(String cartId, int recordId) {
 		Cart cart=cartDAO.findById(recordId);
 		if(cart!=null&&cart.getCartId().equals(cartId)){
 			return cart;
@@ -39,23 +39,23 @@ public class ShopCartServiceClass implements IShopCartService {
 	}
 
 	@Override
-	public List<Cart> FindCartItemsByCartId(String cartId) {
+	public List<Cart> findCartItemsByCartId(String cartId) {
 		return cartDAO.findByCartId(cartId);
 	}
 
 	@Override
-	public void DeleteCart(List<Cart> carts) {
+	public void deleteCart(List<Cart> carts) {
 		carts.stream().forEach(cart->
 		cartDAO.delete(cart));
 	}
 
 	@Override
-	public void DeleteCart(Cart cart) {
+	public void deleteCart(Cart cart) {
 		cartDAO.delete(cart);
 	}
 
 	@Override
-	public Integer StaticAlbumCount(String cartId) {
+	public Integer staticAlbumCount(String cartId) {
 		List<Cart> carts=cartDAO.findByCartId(cartId);
 		if(carts.size()==0){
 			return 0;
@@ -68,7 +68,7 @@ public class ShopCartServiceClass implements IShopCartService {
 	}
 
 	@Override
-	public double StaticTotalMoney(String cartId) {
+	public double staticTotalMoney(String cartId) {
 		List<Cart> carts=cartDAO.findByCartId(cartId);
 		if(carts.size()==0){
 			return 0;
@@ -81,7 +81,7 @@ public class ShopCartServiceClass implements IShopCartService {
 	}
 
 	@Override
-	public void InitialAndCreatCart(Album album, String shoppingCartId) {
+	public void initialAndCreatCart(Album album, String shoppingCartId) {
 		Cart cartItem = new Cart();
 		cartItem.setAlbum(album);		
 		cartItem.setCartId(shoppingCartId); 
@@ -91,7 +91,7 @@ public class ShopCartServiceClass implements IShopCartService {
 	}
 
 	@Override
-	public void EditCart(Cart cart) {
+	public void editCart(Cart cart) {
 		cartDAO.update(cart);
 	}
 

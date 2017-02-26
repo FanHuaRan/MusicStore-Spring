@@ -1,6 +1,7 @@
 package pers.fhr.musicstore.daos;
 
 import java.util.List;
+
 import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.Transaction;

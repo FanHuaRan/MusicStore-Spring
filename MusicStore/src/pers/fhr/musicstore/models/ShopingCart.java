@@ -24,7 +24,7 @@ public class ShopingCart implements IShoppingCart {
 	 }
 	 public static ShopingCart GetCart(HttpSession session){
 		 ShopingCart cart = new ShopingCart();
-         cart.setShoppingCartId(cart.GetCartId(session));
+         cart.setShoppingCartId(cart.getCartId(session));
          return cart;
      }
 	 private String shoppingCartId;
@@ -32,49 +32,49 @@ public class ShopingCart implements IShoppingCart {
 		return shoppingCartId;
 	 }
 	 public List<Cart> GetCartItems(){
-         return shoppingComponet.GetCartItems(shoppingCartId);
+         return shoppingComponet.getCartItems(shoppingCartId);
      }
 	 public void setShoppingCartId(String shoppingCartId) {
 		this.shoppingCartId = shoppingCartId;
 	 }
 	 @Override
-	public void AddToCart(Album album) {
-		 shoppingComponet.AddToCart(album, shoppingCartId);
+	public void addToCart(Album album) {
+		 shoppingComponet.addToCart(album, shoppingCartId);
 	}
 
 	@Override
-	public int RemoveFromCart(int recordId) {
-		return shoppingComponet.RemoveFromCart(shoppingCartId, recordId);
+	public int removeFromCart(int recordId) {
+		return shoppingComponet.removeFromCart(shoppingCartId, recordId);
 	}
 
 	@Override
-	public void EmptyCart() {
-		 shoppingComponet.EmptyCart(shoppingCartId);
+	public void emptyCart() {
+		 shoppingComponet.emptyCart(shoppingCartId);
 	}
 
 	@Override
-	public int GetCount() {
-		 return shoppingComponet.GetCount(shoppingCartId);
+	public int getCount() {
+		 return shoppingComponet.getCount(shoppingCartId);
 	}
 
 	@Override
-	public double GetTotal() {
-		return shoppingComponet.GetTotal(shoppingCartId);
+	public double getTotal() {
+		return shoppingComponet.getTotal(shoppingCartId);
 	}
 
 	@Override
-	public int CreateOrder(Order order) {
-		 return shoppingComponet.CreateOrder(order,shoppingCartId);
+	public int createOrder(Order order) {
+		 return shoppingComponet.createOrder(order,shoppingCartId);
 	}
 
 	@Override
-	public String GetCartId(HttpSession session) {
-		return shoppingComponet.GetCartId(session);
+	public String getCartId(HttpSession session) {
+		return shoppingComponet.getCartId(session);
 	}
 
 	@Override
-	public void MigrateCart(String userName) {
-		 shoppingComponet.MigrateCart(shoppingCartId, userName);
+	public void migrateCart(String userName) {
+		 shoppingComponet.migrateCart(shoppingCartId, userName);
 	}
 	public static String getCartSessionKey(){ 
 		return shoppingComponet.getCartSessionKey();

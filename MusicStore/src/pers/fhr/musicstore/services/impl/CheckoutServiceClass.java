@@ -17,7 +17,7 @@ public class CheckoutServiceClass implements ICheckoutService {
 	 private  IOrderService orderService=null;
 	 private  final String PromoCode="FREE";
 	@Override
-	public boolean AddressAndPayment(Order order, String userName, String userPromoCode) {
+	public boolean addressAndPayment(Order order, String userName, String userPromoCode) {
 		try{
             //judge PromoCode
             if (!userPromoCode.equals(PromoCode))
@@ -28,7 +28,7 @@ public class CheckoutServiceClass implements ICheckoutService {
             {
                 order.setUsername(userName);
                 order.setOrderDate(new Timestamp(System.currentTimeMillis()));
-                order=orderService.CreateOrder(order);
+                order=orderService.createOrder(order);
                 return true;
             }
         }
@@ -39,8 +39,8 @@ public class CheckoutServiceClass implements ICheckoutService {
 	}
 
 	@Override
-	public boolean OrderIsValid(int orderId, String userName) {
-		boolean isValid = orderService.OrderIsExist(orderId, userName);
+	public boolean orderIsValid(int orderId, String userName) {
+		boolean isValid = orderService.orderIsExist(orderId, userName);
         return isValid;
 	}
 

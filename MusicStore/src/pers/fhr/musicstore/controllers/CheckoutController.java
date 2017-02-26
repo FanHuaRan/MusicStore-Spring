@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,7 @@ import pers.fhr.musicstore.viewmodels.AddressAndPaymentViewModel;
 @Controller
 @RequestMapping("/Checkout")
 public class CheckoutController {
+	 private final static Logger logger = Logger.getLogger(CheckoutController.class);
 	 @Autowired
 	 private  ICheckoutService CheckOutService =null;
 	 @RequestMapping()
@@ -37,9 +39,9 @@ public class CheckoutController {
          Order order = new Order();
          TryUpdateModel(order,addressAndPaymentViewModel);
          ShopingCart cart = ShopingCart.GetCart(session);
-         order.setTotal(cart.GetTotal());
+         order.setTotal(cart.getTotal());
          UserDetails userDetails=getUserDetails();
-         if(CheckOutService.AddressAndPayment(order, userDetails.getUsername(), addressAndPaymentViewModel.getPromoCode())){
+         if(CheckOutService.addressAndPayment(order, userDetails.getUsername(), addressAndPaymentViewModel.getPromoCode())){
                 // ShopingCart cart = ShopingCart.GetCart(session);
                  //cart.CreateOrder(order);
                  return "redirect:Complete?id="+order.getOrderId();
@@ -52,7 +54,7 @@ public class CheckoutController {
 	 @RequestMapping("/Complete")
 	 public ModelAndView Complete(int id){
          // Validate customer owns this order
-         boolean isValid = CheckOutService.OrderIsValid(id,getUserDetails().getUsername());
+         boolean isValid = CheckOutService.orderIsValid(id,getUserDetails().getUsername());
          if (isValid){
              return new ModelAndView("checkout/complete","id",id);
          }
