@@ -11,6 +11,7 @@
         <ul id="navlist">
             <li class="first"><a href="/MusicStore/index" id="current">Home</a></li>
             <li><a href="/MusicStore/Store">Store</a></li>
+         
             <!-- 可以使用下面的标签实现Admin用户才显示Admin链接 但是暂时不采用 -->
             <!--<security:authorize access="hasRole('Admin')">
             	 <li><a href="/MusicStore/StoreManager"">Admin</a></li>
@@ -18,12 +19,14 @@
              <li><a href="/MusicStore/StoreManager"">Admin</a></li>
              <!-- 如果已经授权则显示退出链接 -->
             <security:authorize access="isAuthenticated()">
-            	<li><a href="/MusicStore/Account/logOut">LogOut</a></li>
+            	<li><a href="/MusicStore/Account/logOut">Log Out</a></li>
             </security:authorize>
             <!-- 不具有 Admin,User的权限则显示登录链接-->
            <security:authorize ifNotGranted="Admin,User">
-           		<li><a href="/MusicStore/Account/logOn">LogIn</a></li>
+           		<li><a href="/MusicStore/Account/logOn">Log In</a></li>
            </security:authorize>
+           
+           <li><a href="/MusicStore/ShoppingCart"><img alt="ShopCar" src="/MusicStore/Resource/images/shopingcar.png"/></a></li>
         </ul>
     </div>
 </body>
