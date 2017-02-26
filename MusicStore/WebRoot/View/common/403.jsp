@@ -18,7 +18,18 @@
   </head>
   
   <body>
+  	<div class="container">
+  		<div class="row">
+    		<div class="col-md-2 col-md-offset-5 text-center">
+    			<h4>Http Status:403</h4>
+			    <p>You don't have<em>auth!</em></p>
+			   <p> You Can Also 
+			   <a href="/MusicStore/index"><em>Review Our Home Page</em></a>
+			   </p>
+    		</div>
+	    </div>
+  	</div>
   	Http Status:403<br>
-    You don't have auth!
+    
   </body>
 </html>

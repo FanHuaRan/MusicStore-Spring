@@ -18,8 +18,17 @@
   </head>
   
   <body>
-  	Http Status:404<br>
-    I think you browse the wrong url!<br>
-    Please check out and try again!<br>
+  	<div class="container">
+  		<div class="row">
+    		<div class="col-md-2 col-md-offset-5 text-center">
+    			<h4>Http Status:404</h4>
+			    <p>I think You have inputed <em>the wrong url</em></p>
+			   <p> Please <strong>check out </strong> and try again!</p>
+			   <p> You Can Also 
+			   <a href="/MusicStore/index"><em>Review Our Home Page</em></a>
+			   </p>
+    		</div>
+	    </div>
+  	</div>
   </body>
 </html>

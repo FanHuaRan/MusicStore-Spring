@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>MusicStore</display-name>
+  <welcome-file-list>
+    <welcome-file>/index</welcome-file>
+  </welcome-file-list>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml,/WEB-INF/spring-security.xml</param-value>
@@ -96,6 +99,7 @@
 	    <error-code>404</error-code>
 	    <location>/Status/404</location>
   </error-page>
+  <!-- 便于观察错误 所以500响应暂时不配置错误页 -->
   <error-page>
 	    <error-code>500</error-code>
 	    <location>/Status/500</location>
