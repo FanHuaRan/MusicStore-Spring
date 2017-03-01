@@ -12,21 +12,21 @@ import org.springframework.web.util.HtmlUtils;
 
 import pers.fhr.musicstore.models.ShopingCart;
 import pers.fhr.musicstore.services.IAlbumService;
-import pers.fhr.musicstore.services.IShopCartService;
+import pers.fhr.musicstore.services.ICartService;
 import pers.fhr.musicstore.viewmodels.ShoppingCartRemoveViewModel;
 
 @Controller
 @RequestMapping("/Shopping")
 public class ShoppingAjaxController {
 	 @Autowired
-	 private final IShopCartService shopCartService =null;
+	 private final ICartService cartService =null;
 	 @ResponseBody 
 	 @RequestMapping(value="/RemoveFromCart",
 						method=RequestMethod.POST,
 						produces=MediaType.APPLICATION_JSON_VALUE)
 	  public ShoppingCartRemoveViewModel RemoveFromCart(HttpSession session, int id){
 	        ShopingCart cart = ShopingCart.GetCart(session);
-	        String albumName = shopCartService.findCartAlbumTitle(id);
+	        String albumName = cartService.findCartAlbumTitle(id);
 	        int itemCount = cart.removeFromCart(id);
 	        ShoppingCartRemoveViewModel results = new ShoppingCartRemoveViewModel();
 	        results.setMessage(HtmlUtils.htmlEscape(albumName)+  "has been removed from your shopping cart.");

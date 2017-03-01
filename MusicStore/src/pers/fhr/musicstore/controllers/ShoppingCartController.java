@@ -15,7 +15,7 @@ import org.springframework.web.util.HtmlUtils;
 import pers.fhr.musicstore.models.Album;
 import pers.fhr.musicstore.models.ShopingCart;
 import pers.fhr.musicstore.services.IAlbumService;
-import pers.fhr.musicstore.services.IShopCartService;
+import pers.fhr.musicstore.services.ICartService;
 import pers.fhr.musicstore.viewmodels.ShoppingCartRemoveViewModel;
 import pers.fhr.musicstore.viewmodels.ShoppingCartViewModel;
 
@@ -24,7 +24,7 @@ import pers.fhr.musicstore.viewmodels.ShoppingCartViewModel;
 public class ShoppingCartController {
 	private final static Logger logger = Logger.getLogger(ShoppingCartController.class);
     @Autowired
-    private final IShopCartService shopCartService =null;
+    private final ICartService shopCartService =null;
     @Autowired
     private final IAlbumService albumService =null;
     @RequestMapping()

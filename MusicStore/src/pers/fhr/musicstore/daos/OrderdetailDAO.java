@@ -116,7 +116,9 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 	public Orderdetail merge(Orderdetail detachedInstance) {
 		log.debug("merging Orderdetail instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			Orderdetail result = (Orderdetail) getSession().merge(detachedInstance);
+			transaction.commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

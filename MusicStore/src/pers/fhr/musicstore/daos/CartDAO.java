@@ -30,19 +30,20 @@ public class CartDAO extends BaseHibernateDAO {
 	public static final String CART_ID = "cartId";
 	public static final String COUNT = "count";
 
-	public void save(Cart transientInstance) {
+	public Cart save(Cart transientInstance) {
 		log.debug("saving Cart instance");
 		try {
 			Transaction transaction=getSession().beginTransaction();
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
-	public void update(Cart transientInstance) {
+	public Cart update(Cart transientInstance) {
 		log.debug("updateing Cart instance");
 		try {
 			getSession().clear();
@@ -50,6 +51,7 @@ public class CartDAO extends BaseHibernateDAO {
 			getSession().update(transientInstance);
 			transaction.commit();
 			log.debug("update successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;

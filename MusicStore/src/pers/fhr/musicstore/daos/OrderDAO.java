@@ -39,19 +39,20 @@ public class OrderDAO extends BaseHibernateDAO {
 	public static final String EMAIL = "email";
 	public static final String TOTAL = "total";
 
-	public void save(Order transientInstance) {
+	public Order save(Order transientInstance) {
 		log.debug("saving Order instance");
 		try {
 			Transaction transaction=getSession().beginTransaction();
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
-	public void update(Order transientInstance) {
+	public Order update(Order transientInstance) {
 		log.debug("update Order instance");
 		try {
 			getSession().clear();
@@ -59,6 +60,7 @@ public class OrderDAO extends BaseHibernateDAO {
 			getSession().update(transientInstance);
 			transaction.commit();
 			log.debug("update successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;

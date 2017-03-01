@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.LockMode;
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +30,14 @@ public class GenreDAO extends BaseHibernateDAO {
 	public static final String NAME = "name";
 	public static final String DESCRIPTION = "description";
 
-	public void save(Genre transientInstance) {
+	public Genre save(Genre transientInstance) {
 		log.debug("saving Genre instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().save(transientInstance);
+			transaction.commit();
 			log.debug("save successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -43,7 +47,9 @@ public class GenreDAO extends BaseHibernateDAO {
 	public void delete(Genre persistentInstance) {
 		log.debug("deleting Genre instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			getSession().delete(persistentInstance);
+			transaction.commit();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -111,7 +117,9 @@ public class GenreDAO extends BaseHibernateDAO {
 	public Genre merge(Genre detachedInstance) {
 		log.debug("merging Genre instance");
 		try {
+			Transaction transaction=getSession().beginTransaction();
 			Genre result = (Genre) getSession().merge(detachedInstance);
+			transaction.commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

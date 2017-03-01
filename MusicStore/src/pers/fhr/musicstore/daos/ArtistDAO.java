@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +30,15 @@ public class ArtistDAO extends BaseHibernateDAO {
 	// property constants
 	public static final String NAME = "name";
 
-	public void save(Artist transientInstance) {
+	public Artist save(Artist transientInstance) {
 		log.debug("saving Artist instance");
 		try {
-			getSession().save(transientInstance);
+			Session session=getSession();
+			Transaction transaction=session.beginTransaction();
+			session.save(transientInstance);
+			transaction.commit();
 			log.debug("save successful");
+			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -42,7 +48,10 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public void delete(Artist persistentInstance) {
 		log.debug("deleting Artist instance");
 		try {
-			getSession().delete(persistentInstance);
+			Session session=getSession();
+			Transaction transaction=session.beginTransaction();
+			session.delete(persistentInstance);
+			transaction.commit();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -106,7 +115,10 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public Artist merge(Artist detachedInstance) {
 		log.debug("merging Artist instance");
 		try {
-			Artist result = (Artist) getSession().merge(detachedInstance);
+			Session session=getSession();
+			Transaction transaction=session.beginTransaction();
+			Artist result=(Artist)session.merge(detachedInstance);
+			transaction.commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {

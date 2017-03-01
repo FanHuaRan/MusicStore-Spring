@@ -8,7 +8,7 @@ public interface IAlbumService {
 	List<Album> getTopSellingAlbums(int count);
     Album findAlbumById(int id);
     List<Album> findAlbums();
-    void createAlbum(Album album);
-    void editAlbum(Album album);
+    Album createAlbum(Album album);
+    Album editAlbum(Album album);
     void deleteAlbum(int id);
 }

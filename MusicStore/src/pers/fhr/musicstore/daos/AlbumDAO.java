@@ -26,6 +26,7 @@ import pers.fhr.musicstore.models.Album;
  * 
  * @see pers.fhr.musicstore.models.Album
  * @author MyEclipse Persistence Tools
+ * @notice attachDirty  attachClean等很多dao里面方法还是用的自动生成  有错误
  */
 @Repository
 public class AlbumDAO extends BaseHibernateDAO {
@@ -35,14 +36,12 @@ public class AlbumDAO extends BaseHibernateDAO {
 	public static final String PRICE = "price";
 	public static final String ALBUM_ART_URL = "albumArtUrl";
 	@SuppressWarnings("unchecked")
-	//@Cacheable("albumDAOCache")
 	public List<Album> getAlbumsOrderByOrderDetailsTopCount(int count){
 		Session session=getSession();
 		Query query=session.createQuery("from Album a order by a.orderdetails.size desc").setMaxResults(count);
 		List<Album> albums=(List<Album>)query.list();
 		return albums;
 	}
-	//@CachePut(value="albumDAOCache",key="@result.albumId")
 	public Album save(Album transientInstance) {
 		log.debug("saving Album instance");
 		try {
@@ -56,7 +55,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-	//@CachePut(value="albumDAOCache",key="@result.albumId")
+	
 	public Album update(Album transientInstance) {
 		log.debug("updateing Album instance");
 		try {
@@ -71,7 +70,6 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-	//@CacheEvict(value="albumDAOCache",key="#persistentInstance.albumId")
 	public void delete(Album persistentInstance) {
 		log.debug("deleting Album instance");
 		try {

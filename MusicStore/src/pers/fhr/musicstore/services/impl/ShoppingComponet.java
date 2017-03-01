@@ -14,31 +14,31 @@ import pers.fhr.musicstore.models.Album;
 import pers.fhr.musicstore.models.Cart;
 import pers.fhr.musicstore.models.Order;
 import pers.fhr.musicstore.services.IOrderService;
-import pers.fhr.musicstore.services.IShopCartService;
+import pers.fhr.musicstore.services.ICartService;
 import pers.fhr.musicstore.services.IShoppingComponet;
 @Service
 public class ShoppingComponet implements IShoppingComponet {
 	@Autowired
-	 private  IShopCartService shopCartService=null;
+	 private  ICartService cartService=null;
 	 @Autowired
      private  IOrderService orderService=null;
 	  //存在Session中的键值 保存ShoppingCartId
     private  final  String cartSessionKey = "CartId";
 	@Override
 	public void addToCart(Album album, String shoppingCartId) {
-		 Cart cartItem = shopCartService.findCartByCartIdAndAlbumId(shoppingCartId, album.getAlbumId());
+		 Cart cartItem = cartService.findCartByCartIdAndAlbumId(shoppingCartId, album.getAlbumId());
          if (cartItem == null){
-             shopCartService.initialAndCreatCart(album, shoppingCartId);
+             cartService.initialAndCreatCart(album, shoppingCartId);
          }
          else{
              cartItem.setCount(cartItem.getCount()+1);
-             shopCartService.editCart(cartItem);
+             cartService.editCart(cartItem);
          }
 	}
 	@Override
 	public void emptyCart(String shoppingCartId) {
-		List<Cart> cartItems = shopCartService.findCartItemsByCartId(shoppingCartId);
-        shopCartService.deleteCart(cartItems);
+		List<Cart> cartItems = cartService.findCartItemsByCartId(shoppingCartId);
+        cartService.deleteCart(cartItems);
 	}
 
 	@Override
@@ -68,40 +68,40 @@ public class ShoppingComponet implements IShoppingComponet {
 
 	@Override
 	public List<Cart> getCartItems(String shoppingCartId) {
-		 return shopCartService.findCartItemsByCartId(shoppingCartId);
+		 return cartService.findCartItemsByCartId(shoppingCartId);
 	}
 
 	@Override
 	public int getCount(String shoppingCartId) {
-        return  shopCartService.staticAlbumCount(shoppingCartId);
+        return  cartService.staticAlbumCount(shoppingCartId);
 	}
 
 	@Override
 	public double getTotal(String shoppingCartId) {
-		 return  shopCartService.staticTotalMoney(shoppingCartId);
+		 return  cartService.staticTotalMoney(shoppingCartId);
 	}
 
 	@Override
 	public void migrateCart(String ShoppingCartId, String userName) {
-		List<Cart> shoppingCarts = shopCartService.findCartItemsByCartId(ShoppingCartId);
+		List<Cart> shoppingCarts = cartService.findCartItemsByCartId(ShoppingCartId);
 		shoppingCarts.forEach(cart->{
 			cart.setCartId(userName);
-			shopCartService.editCart(cart);
+			cartService.editCart(cart);
 		});
 	}
 
 	@Override
 	public int removeFromCart(String shoppingCartId, int recordId) {
-		 Cart cartItem = shopCartService.findCartByCartIdAndRecordId(shoppingCartId, recordId);
+		 Cart cartItem = cartService.findCartByCartIdAndRecordId(shoppingCartId, recordId);
          int itemCount = 0;
          if (cartItem != null){
              if (cartItem.getCount() > 1){
                  cartItem.setCount(cartItem.getCount()-1);
                  itemCount = cartItem.getCount();
-                 shopCartService.editCart(cartItem);
+                 cartService.editCart(cartItem);
              }
              else{
-                 shopCartService.deleteCart(cartItem);
+                 cartService.deleteCart(cartItem);
              }
          }
          return itemCount;

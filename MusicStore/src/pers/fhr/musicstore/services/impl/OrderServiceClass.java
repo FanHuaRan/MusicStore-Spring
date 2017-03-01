@@ -3,6 +3,9 @@ package pers.fhr.musicstore.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import pers.fhr.musicstore.daos.OrderDAO;
@@ -25,18 +28,17 @@ public class OrderServiceClass implements IOrderService {
 		}
 		return true;
 	}
-
+	@CachePut(value="orderCache",key="#result.orderId")
 	@Override
 	public Order createOrder(Order order) {
 		orderDao.save(order);
 		return order;
 	}
-
+	@CachePut(value="orderCache",key="#order.orderId")
 	@Override
-	public void editOrder(Order order) {
-		orderDao.update(order);
+	public Order editOrder(Order order) {
+		return orderDao.update(order);
 	}
-
 	@Override
 	public void creatOrderDetails(Order order, List<Cart> cartItems) {
 		//double orderTotal = 0;

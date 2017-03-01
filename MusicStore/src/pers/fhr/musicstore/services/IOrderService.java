@@ -8,6 +8,6 @@ import pers.fhr.musicstore.models.Order;
 public interface IOrderService {
 	  boolean orderIsExist(int orderId, String userName);
       Order createOrder(Order order);
-      void editOrder(Order order);
+      Order editOrder(Order order);
       void creatOrderDetails(Order order, List<Cart> cartItems);
 }

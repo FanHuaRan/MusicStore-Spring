@@ -5,7 +5,7 @@ import java.util.List;
 import pers.fhr.musicstore.models.Album;
 import pers.fhr.musicstore.models.Cart;
 
-public interface IShopCartService {
+public interface ICartService {
 	String findCartAlbumTitle(int cartRecordId);
     Cart findCartByCartIdAndAlbumId(String cartId, int albumId);
     Cart findCartByCartIdAndRecordId(String cartId, int recordId);
@@ -14,6 +14,6 @@ public interface IShopCartService {
     void deleteCart(Cart cart);
     Integer staticAlbumCount(String cartId);
     double staticTotalMoney(String cartId);
-    void initialAndCreatCart(Album album, String shoppingCartId);
-    void editCart(Cart cart);
+    Cart initialAndCreatCart(Album album, String shoppingCartId);
+    Cart editCart(Cart cart);
 }
