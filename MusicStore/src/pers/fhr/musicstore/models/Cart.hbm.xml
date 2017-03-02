@@ -10,7 +10,7 @@
             <column name="RecordId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="album" class="pers.fhr.musicstore.models.Album" fetch="select">
+        <many-to-one name="album" class="pers.fhr.musicstore.models.Album" lazy="false">
             <column name="AlbumId" not-null="true" />
         </many-to-one>
         <property name="cartId" type="java.lang.String">
