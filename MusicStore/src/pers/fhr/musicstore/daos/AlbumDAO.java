@@ -49,6 +49,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -64,6 +65,7 @@ public class AlbumDAO extends BaseHibernateDAO {
 			getSession().update(transientInstance);
 			transaction.commit();
 			log.debug("update successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
@@ -77,15 +79,16 @@ public class AlbumDAO extends BaseHibernateDAO {
 			getSession().delete(persistentInstance);
 			transaction.commit();
 			log.debug("delete successful");
+			getSession().close();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
 		}
 	}
-	//@Cacheable("albumDAOCache")
 	public Album findById(java.lang.Integer id) {
 		log.debug("getting Album instance with id: " + id);
 		try {
+			getSession().clear();
 			Album instance = (Album) getSession().get("pers.fhr.musicstore.models.Album", id);
 			return instance;
 		} catch (RuntimeException re) {
@@ -93,10 +96,10 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-	//@Cacheable("albumDAOCache")
 	public List findByExample(Album instance) {
 		log.debug("finding Album instance by example");
 		try {
+			getSession().clear();
 			List results = getSession().createCriteria("pers.fhr.musicstore.models.Album").add(Example.create(instance))
 					.list();
 			log.debug("find by example successful, result size: " + results.size());
@@ -106,10 +109,10 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-	//@Cacheable("albumDAOCache")
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Album instance with property: " + propertyName + ", value: " + value);
 		try {
+			getSession().clear();
 			String queryString = "from Album as model where model." + propertyName + "= ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -119,22 +122,19 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-	//@Cacheable("albumDAOCache")
 	public List findByTitle(Object title) {
 		return findByProperty(TITLE, title);
 	}
-	//@Cacheable("albumDAOCache")
 	public List findByPrice(Object price) {
 		return findByProperty(PRICE, price);
 	}
-	//@Cacheable("albumDAOCache")
 	public List findByAlbumArtUrl(Object albumArtUrl) {
 		return findByProperty(ALBUM_ART_URL, albumArtUrl);
 	}
-	//@Cacheable("albumDAOCache")
 	public List findAll() {
 		log.debug("finding all Album instances");
 		try {
+			getSession().clear();
 			String queryString = "from Album";
 			Query queryObject = getSession().createQuery(queryString);
 			return queryObject.list();
@@ -143,7 +143,6 @@ public class AlbumDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
-	//@CachePut(value="albumDAOCache",key="@result.albumId")
 	public Album merge(Album detachedInstance) {
 		log.debug("merging Album instance");
 		try {

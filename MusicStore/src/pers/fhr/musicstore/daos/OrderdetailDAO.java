@@ -37,6 +37,7 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			getSession().close();
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -50,6 +51,7 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 			getSession().delete(persistentInstance);
 			transaction.commit();
 			log.debug("delete successful");
+			getSession().close();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -59,6 +61,7 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 	public Orderdetail findById(java.lang.Integer id) {
 		log.debug("getting Orderdetail instance with id: " + id);
 		try {
+			getSession().clear();
 			Orderdetail instance = (Orderdetail) getSession().get("pers.fhr.musicstore.models.Orderdetail", id);
 			return instance;
 		} catch (RuntimeException re) {
@@ -70,6 +73,7 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 	public List findByExample(Orderdetail instance) {
 		log.debug("finding Orderdetail instance by example");
 		try {
+			getSession().clear();
 			List results = getSession().createCriteria("pers.fhr.musicstore.models.Orderdetail")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
@@ -83,6 +87,7 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Orderdetail instance with property: " + propertyName + ", value: " + value);
 		try {
+			getSession().clear();
 			String queryString = "from Orderdetail as model where model." + propertyName + "= ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -104,6 +109,7 @@ public class OrderdetailDAO extends BaseHibernateDAO {
 	public List findAll() {
 		log.debug("finding all Orderdetail instances");
 		try {
+			getSession().clear();
 			String queryString = "from Orderdetail";
 			Query queryObject = getSession().createQuery(queryString);
 			return queryObject.list();

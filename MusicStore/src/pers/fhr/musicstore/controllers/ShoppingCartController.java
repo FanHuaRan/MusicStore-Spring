@@ -28,6 +28,7 @@ public class ShoppingCartController {
     @Autowired
     private final IAlbumService albumService =null;
     @RequestMapping()
+    
     public ModelAndView Index(HttpSession session){
         ShopingCart cart = ShopingCart.GetCart(session);
         ShoppingCartViewModel viewModel = new ShoppingCartViewModel(cart.GetCartItems(),cart.getTotal());

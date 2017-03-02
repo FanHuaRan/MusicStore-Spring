@@ -37,6 +37,7 @@ public class CartDAO extends BaseHibernateDAO {
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -51,6 +52,7 @@ public class CartDAO extends BaseHibernateDAO {
 			getSession().update(transientInstance);
 			transaction.commit();
 			log.debug("update successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
@@ -65,6 +67,7 @@ public class CartDAO extends BaseHibernateDAO {
 			getSession().delete(persistentInstance);
 			transaction.commit();
 			log.debug("delete successful");
+			getSession().close();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -74,6 +77,7 @@ public class CartDAO extends BaseHibernateDAO {
 	public Cart findById(java.lang.Integer id) {
 		log.debug("getting Cart instance with id: " + id);
 		try {
+			getSession().clear();
 			Cart instance = (Cart) getSession().get("pers.fhr.musicstore.models.Cart", id);
 			return instance;
 		} catch (RuntimeException re) {
@@ -85,6 +89,7 @@ public class CartDAO extends BaseHibernateDAO {
 	public List findByExample(Cart instance) {
 		log.debug("finding Cart instance by example");
 		try {
+			getSession().clear();
 			List results = getSession().createCriteria("pers.fhr.musicstore.models.Cart").add(Example.create(instance))
 					.list();
 			log.debug("find by example successful, result size: " + results.size());
@@ -98,6 +103,7 @@ public class CartDAO extends BaseHibernateDAO {
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Cart instance with property: " + propertyName + ", value: " + value);
 		try {
+			getSession().clear();
 			String queryString = "from Cart as model where model." + propertyName + "= ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -110,6 +116,7 @@ public class CartDAO extends BaseHibernateDAO {
 	public List FindCartByCartIdAndAlbumId(String cartId, int albumId){
 		log.debug("finding Cart instance with CartId And AlbumId: " + cartId + " " + albumId);
 		try {
+			getSession().clear();
 			String queryString = "from Cart as model where model.album.albumId=? and model.cartId=?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, albumId);
@@ -131,6 +138,7 @@ public class CartDAO extends BaseHibernateDAO {
 	public List findAll() {
 		log.debug("finding all Cart instances");
 		try {
+			getSession().clear();
 			String queryString = "from Cart";
 			Query queryObject = getSession().createQuery(queryString);
 			return queryObject.list();

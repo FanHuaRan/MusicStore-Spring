@@ -33,11 +33,11 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public Artist save(Artist transientInstance) {
 		log.debug("saving Artist instance");
 		try {
-			Session session=getSession();
-			Transaction transaction=session.beginTransaction();
-			session.save(transientInstance);
+			Transaction transaction=getSession().beginTransaction();
+			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -48,11 +48,12 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public void delete(Artist persistentInstance) {
 		log.debug("deleting Artist instance");
 		try {
-			Session session=getSession();
-			Transaction transaction=session.beginTransaction();
-			session.delete(persistentInstance);
+			getSession().clear();
+			Transaction transaction=getSession().beginTransaction();
+			getSession().delete(persistentInstance);
 			transaction.commit();
 			log.debug("delete successful");
+			getSession().close();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -62,6 +63,7 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public Artist findById(java.lang.Integer id) {
 		log.debug("getting Artist instance with id: " + id);
 		try {
+			getSession().clear();
 			Artist instance = (Artist) getSession().get("pers.fhr.musicstore.models.Artist", id);
 			return instance;
 		} catch (RuntimeException re) {
@@ -73,6 +75,7 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public List findByExample(Artist instance) {
 		log.debug("finding Artist instance by example");
 		try {
+			getSession().clear();
 			List results = getSession().createCriteria("pers.fhr.musicstore.models.Artist")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
@@ -86,6 +89,7 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Artist instance with property: " + propertyName + ", value: " + value);
 		try {
+			getSession().clear();
 			String queryString = "from Artist as model where model." + propertyName + "= ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -103,6 +107,7 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public List findAll() {
 		log.debug("finding all Artist instances");
 		try {
+			getSession().clear();
 			String queryString = "from Artist";
 			Query queryObject = getSession().createQuery(queryString);
 			return queryObject.list();
@@ -115,9 +120,8 @@ public class ArtistDAO extends BaseHibernateDAO {
 	public Artist merge(Artist detachedInstance) {
 		log.debug("merging Artist instance");
 		try {
-			Session session=getSession();
-			Transaction transaction=session.beginTransaction();
-			Artist result=(Artist)session.merge(detachedInstance);
+			Transaction transaction=getSession().beginTransaction();
+			Artist result=(Artist)getSession().merge(detachedInstance);
 			transaction.commit();
 			log.debug("merge successful");
 			return result;

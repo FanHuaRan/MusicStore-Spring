@@ -46,6 +46,7 @@ public class OrderDAO extends BaseHibernateDAO {
 			getSession().save(transientInstance);
 			transaction.commit();
 			log.debug("save successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -60,6 +61,7 @@ public class OrderDAO extends BaseHibernateDAO {
 			getSession().update(transientInstance);
 			transaction.commit();
 			log.debug("update successful");
+			getSession().close();
 			return transientInstance;
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
@@ -73,6 +75,7 @@ public class OrderDAO extends BaseHibernateDAO {
 			getSession().delete(persistentInstance);
 			transaction.commit();
 			log.debug("delete successful");
+			getSession().close();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -82,6 +85,7 @@ public class OrderDAO extends BaseHibernateDAO {
 	public Order findById(java.lang.Integer id) {
 		log.debug("getting Order instance with id: " + id);
 		try {
+			getSession().clear();
 			Order instance = (Order) getSession().get("pers.fhr.musicstore.models.Order", id);
 			return instance;
 		} catch (RuntimeException re) {
@@ -93,6 +97,7 @@ public class OrderDAO extends BaseHibernateDAO {
 	public List findByExample(Order instance) {
 		log.debug("finding Order instance by example");
 		try {
+			getSession().clear();
 			List results = getSession().createCriteria("pers.fhr.musicstore.models.Order").add(Example.create(instance))
 					.list();
 			log.debug("find by example successful, result size: " + results.size());
@@ -106,6 +111,7 @@ public class OrderDAO extends BaseHibernateDAO {
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Order instance with property: " + propertyName + ", value: " + value);
 		try {
+			getSession().clear();
 			String queryString = "from Order as model where model." + propertyName + "= ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
@@ -163,6 +169,7 @@ public class OrderDAO extends BaseHibernateDAO {
 	public List findAll() {
 		log.debug("finding all Order instances");
 		try {
+			getSession().clear();
 			String queryString = "from Order";
 			Query queryObject = getSession().createQuery(queryString);
 			return queryObject.list();
