@@ -11,7 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 import net.sf.ehcache.CacheManager;
 
 /**
- * EhCache配置类 失败咯
+ * EhCache配置类 
  * @author ASUS
  *
  */
