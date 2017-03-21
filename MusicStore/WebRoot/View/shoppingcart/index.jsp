@@ -21,7 +21,7 @@
             var recordDelete = $(this).attr("data-id");
             if (recordDelete != '') {
                 // Perform the ajax post
-                $.post("/MusicStore/api/Shopping/RemoveFromCart"
+                $.post("/MusicStore/ShoppingCart/RemoveFromCart"
                       , { id: recordDelete }
                       , function (data) {
                           // Successful requests get here
