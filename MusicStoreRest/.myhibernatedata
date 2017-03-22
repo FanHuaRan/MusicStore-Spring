@@ -1,0 +1,20 @@
+#MyEclipse Hibernate Properties
+#Wed Mar 22 23:33:06 CST 2017
+genBasicCompId=false
+sessionFactoryName=
+profile=
+daoSFId=sessionFactory
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=src/applicationContext.xml
+useJavaTypes=true
+keyGenerator=
+genVersionTag=false
+sessionFactoryId=sessionFactory
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/MusicStoreRest/src/applicationContext.xml
+createConfigFile=true
