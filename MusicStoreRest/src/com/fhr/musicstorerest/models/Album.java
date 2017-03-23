@@ -1,8 +1,5 @@
 package com.fhr.musicstorerest.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Album entity. @author MyEclipse Persistence Tools
  */
@@ -12,14 +9,11 @@ public class Album implements java.io.Serializable {
 	// Fields
 
 	private Integer albumId;
-	private Artist artist;
-	private Genre genre;
+	private Integer artistId;
+	private Integer genreId;
 	private String title;
 	private Double price;
 	private String albumArtUrl;
-	private Set carts = new HashSet(0);
-	private Set orderdetails = new HashSet(0);
-
 	// Constructors
 
 	/** default constructor */
@@ -27,23 +21,20 @@ public class Album implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Album(Artist artist, Genre genre, String title, Double price) {
-		this.artist = artist;
-		this.genre = genre;
+	public Album(Integer artistId,Integer genreId,String title, Double price) {
+		this.artistId = artistId;
+		this.genreId = genreId;
 		this.title = title;
 		this.price = price;
 	}
 
 	/** full constructor */
-	public Album(Artist artist, Genre genre, String title, Double price, String albumArtUrl, Set carts,
-			Set orderdetails) {
-		this.artist = artist;
-		this.genre = genre;
+	public Album(Integer artistId,Integer genreId,String title, Double price, String albumArtUrl) {
+		this.artistId = artistId;
+		this.genreId = genreId;
 		this.title = title;
 		this.price = price;
 		this.albumArtUrl = albumArtUrl;
-		this.carts = carts;
-		this.orderdetails = orderdetails;
 	}
 
 	// Property accessors
@@ -56,24 +47,24 @@ public class Album implements java.io.Serializable {
 		this.albumId = albumId;
 	}
 
-	public Artist getArtist() {
-		return this.artist;
+	public Integer getArtistId() {
+		return artistId;
 	}
 
-	public void setArtist(Artist artist) {
-		this.artist = artist;
+	public void setArtistId(Integer artistId) {
+		this.artistId = artistId;
 	}
 
-	public Genre getGenre() {
-		return this.genre;
+	public Integer getGenreId() {
+		return genreId;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
+	public void setGenreId(Integer genreId) {
+		this.genreId = genreId;
 	}
 
 	public String getTitle() {
-		return this.title;
+		return title;
 	}
 
 	public void setTitle(String title) {
@@ -95,21 +86,4 @@ public class Album implements java.io.Serializable {
 	public void setAlbumArtUrl(String albumArtUrl) {
 		this.albumArtUrl = albumArtUrl;
 	}
-
-	public Set getCarts() {
-		return this.carts;
-	}
-
-	public void setCarts(Set carts) {
-		this.carts = carts;
-	}
-
-	public Set getOrderdetails() {
-		return this.orderdetails;
-	}
-
-	public void setOrderdetails(Set orderdetails) {
-		this.orderdetails = orderdetails;
-	}
-
 }

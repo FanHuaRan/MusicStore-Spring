@@ -46,11 +46,5 @@
         <property name="total" type="java.lang.Double">
             <column name="Total" precision="18" not-null="true" />
         </property>
-        <set name="orderdetails" inverse="true">
-            <key>
-                <column name="OrderId" not-null="true" />
-            </key>
-            <one-to-many class="com.fhr.musicstorerest.models.Orderdetail" />
-        </set>
     </class>
 </hibernate-mapping>

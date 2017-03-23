@@ -11,7 +11,7 @@ public class Cart implements java.io.Serializable {
 	// Fields
 
 	private Integer recordId;
-	private Album album;
+	private Integer albumId;
 	private String cartId;
 	private Integer count;
 	private Timestamp dateCreated;
@@ -23,15 +23,15 @@ public class Cart implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Cart(Album album, Integer count, Timestamp dateCreated) {
-		this.album = album;
+	public Cart(Integer albumId, Integer count, Timestamp dateCreated) {
+		this.setAlbumId(albumId);
 		this.count = count;
 		this.dateCreated = dateCreated;
 	}
 
 	/** full constructor */
-	public Cart(Album album, String cartId, Integer count, Timestamp dateCreated) {
-		this.album = album;
+	public Cart(Integer albumId, String cartId, Integer count, Timestamp dateCreated) {
+		this.setAlbumId(albumId);
 		this.cartId = cartId;
 		this.count = count;
 		this.dateCreated = dateCreated;
@@ -47,13 +47,8 @@ public class Cart implements java.io.Serializable {
 		this.recordId = recordId;
 	}
 
-	public Album getAlbum() {
-		return this.album;
-	}
-
-	public void setAlbum(Album album) {
-		this.album = album;
-	}
+	
+	
 
 	public String getCartId() {
 		return this.cartId;
@@ -77,6 +72,14 @@ public class Cart implements java.io.Serializable {
 
 	public void setDateCreated(Timestamp dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	public Integer getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(Integer albumId) {
+		this.albumId = albumId;
 	}
 
 }

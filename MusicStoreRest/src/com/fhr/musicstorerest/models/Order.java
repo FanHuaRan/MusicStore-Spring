@@ -1,8 +1,6 @@
 package com.fhr.musicstorerest.models;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Order entity. @author MyEclipse Persistence Tools
@@ -25,8 +23,6 @@ public class Order implements java.io.Serializable {
 	private String phone;
 	private String email;
 	private Double total;
-	private Set orderdetails = new HashSet(0);
-
 	// Constructors
 
 	/** default constructor */
@@ -51,8 +47,7 @@ public class Order implements java.io.Serializable {
 
 	/** full constructor */
 	public Order(String username, Timestamp orderDate, String firstName, String lastName, String address, String city,
-			String state, String postalCode, String country, String phone, String email, Double total,
-			Set orderdetails) {
+			String state, String postalCode, String country, String phone, String email, Double total) {
 		this.username = username;
 		this.orderDate = orderDate;
 		this.firstName = firstName;
@@ -65,7 +60,6 @@ public class Order implements java.io.Serializable {
 		this.phone = phone;
 		this.email = email;
 		this.total = total;
-		this.orderdetails = orderdetails;
 	}
 
 	// Property accessors
@@ -173,13 +167,4 @@ public class Order implements java.io.Serializable {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-
-	public Set getOrderdetails() {
-		return this.orderdetails;
-	}
-
-	public void setOrderdetails(Set orderdetails) {
-		this.orderdetails = orderdetails;
-	}
-
 }

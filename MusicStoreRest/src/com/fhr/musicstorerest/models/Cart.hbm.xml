@@ -10,9 +10,9 @@
             <column name="RecordId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="album" class="com.fhr.musicstorerest.models.Album" fetch="select">
-            <column name="AlbumId" not-null="true" />
-        </many-to-one>
+        <property name="albumId" type="java.lang.Integer">
+        	<column name="AlbumId" not-null="true"></column>
+        </property>
         <property name="cartId" type="java.lang.String">
             <column name="CartId" />
         </property>

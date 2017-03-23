@@ -10,12 +10,12 @@
             <column name="OrderDetailId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="album" class="com.fhr.musicstorerest.models.Album" fetch="select">
-            <column name="AlbumId" not-null="true" />
-        </many-to-one>
-        <many-to-one name="order" class="com.fhr.musicstorerest.models.Order" fetch="select">
-            <column name="OrderId" not-null="true" />
-        </many-to-one>
+        <property name="orderId" type="java.lang.String">
+            <column name="OrderId" />
+        </property>
+        <property name="albumId" type="java.lang.String">
+            <column name="AlbumId" />
+        </property>
         <property name="quantity" type="java.lang.Integer">
             <column name="Quantity" not-null="true" />
         </property>

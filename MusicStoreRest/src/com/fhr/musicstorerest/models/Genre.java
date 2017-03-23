@@ -1,8 +1,5 @@
 package com.fhr.musicstorerest.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Genre entity. @author MyEclipse Persistence Tools
  */
@@ -14,7 +11,6 @@ public class Genre implements java.io.Serializable {
 	private Integer genreId;
 	private String name;
 	private String description;
-	private Set albums = new HashSet(0);
 
 	// Constructors
 
@@ -23,10 +19,9 @@ public class Genre implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Genre(String name, String description, Set albums) {
+	public Genre(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.albums = albums;
 	}
 
 	// Property accessors
@@ -54,13 +49,4 @@ public class Genre implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Set getAlbums() {
-		return this.albums;
-	}
-
-	public void setAlbums(Set albums) {
-		this.albums = albums;
-	}
-
 }

@@ -1,8 +1,5 @@
 package com.fhr.musicstorerest.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Artist entity. @author MyEclipse Persistence Tools
  */
@@ -13,8 +10,6 @@ public class Artist implements java.io.Serializable {
 
 	private Integer artistId;
 	private String name;
-	private Set albums = new HashSet(0);
-
 	// Constructors
 
 	/** default constructor */
@@ -22,9 +17,8 @@ public class Artist implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Artist(String name, Set albums) {
+	public Artist(String name) {
 		this.name = name;
-		this.albums = albums;
 	}
 
 	// Property accessors
@@ -44,13 +38,4 @@ public class Artist implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set getAlbums() {
-		return this.albums;
-	}
-
-	public void setAlbums(Set albums) {
-		this.albums = albums;
-	}
-
 }

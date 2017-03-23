@@ -13,11 +13,5 @@
         <property name="name" type="java.lang.String">
             <column name="Name" />
         </property>
-        <set name="albums" inverse="true">
-            <key>
-                <column name="ArtistId" not-null="true" />
-            </key>
-            <one-to-many class="com.fhr.musicstorerest.models.Album" />
-        </set>
     </class>
 </hibernate-mapping>
