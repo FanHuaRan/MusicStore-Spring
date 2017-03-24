@@ -23,7 +23,8 @@ public class AlbumDAO extends HibernateBaseDao<Album> {
 	public static final String TITLE = "title";
 	public static final String PRICE = "price";
 	public static final String ALBUM_ART_URL = "albumArtUrl";
-	
+	public static final String GENRE_Id="genreId";
+	public static final String ARTIST_Id="artistId";
 	@Autowired
 	public AlbumDAO(SessionFactory sessionFactory){
 		super();
@@ -42,10 +43,16 @@ public class AlbumDAO extends HibernateBaseDao<Album> {
 		return findByProperty(PRICE, price);
 	}
 
+	public List findByArtistId(Object artistId) {
+		return findByProperty(ARTIST_Id, artistId);
+	}
+	
+	public List findByGenreId(Object genreId) {
+		return findByProperty(GENRE_Id, genreId);
+	}
 	public List findByAlbumArtUrl(Object albumArtUrl) {
 		return findByProperty(ALBUM_ART_URL, albumArtUrl);
 	}
-
 	public List findAll() {
 		log.debug("finding all Album instances");
 		try {

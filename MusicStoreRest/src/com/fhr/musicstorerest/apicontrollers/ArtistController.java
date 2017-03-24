@@ -12,33 +12,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.fhr.musicstorerest.models.Genre;
-import com.fhr.musicstorerest.services.IGenreService;
+import com.fhr.musicstorerest.models.Artist;
+import com.fhr.musicstorerest.services.IArtistService;
 
 @Controller
-@RequestMapping("/Genre")
-public class GenreController {
+@RequestMapping("/Artist")
+public class ArtistController {
 	@Autowired
-	private IGenreService  genreService=null;
+	private IArtistService  artistService=null;
 	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	public List<Genre> findAll(){
-		return genreService.findGenres();
+	public List<Artist> findAll(){
+		return artistService.findArtists();
 	}
 	@RequestMapping(value="/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public Genre findOne(@PathVariable("id") Integer id) {
-		return genreService.findGenreById(id);
+	public Artist findOne(@PathVariable("id") Integer id) {
+		return artistService.findArtistById(id);
 	}
 	@RequestMapping(value="/search",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<Genre> search(@RequestParam(value="name",required=false)String name){
+	public List<Artist> search(@RequestParam(value="name",required=false)String name){
 		if(name!=null||name.equals("")){
-			return genreService.findGenreByName(name);
+			return artistService.findArtistByName(name);
 		}
-		return genreService.findGenres();
+		return artistService.findArtists();
 	}
 }

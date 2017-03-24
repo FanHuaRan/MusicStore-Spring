@@ -49,5 +49,22 @@ public class AlbumServiceClass implements IAlbumService {
 			 albumDAO.delete(album);
 		 }
 	}
+	///没加缓存
+	@Override
+	public List<Album> findAlbumsByTitle(String title) {
+		return albumDAO.findByTitle(title);
+	}
+	@Override
+	public List<Album> findAlbumsByGenreId(int genreId) {
+		return albumDAO.findByGenreId(genreId);
+	}
+	@Override
+	public List<Album> findAlbumsByPriceInterval(double minPrice, double maxPrice) {
+		return albumDAO.findByHQL(String.format("from Album album where album.price between %f and %f",minPrice,maxPrice));
+	}
+	@Override
+	public List<Album> findAlbums(String hql) {
+		return albumDAO.findByHQL(hql);
+	}
 
 }

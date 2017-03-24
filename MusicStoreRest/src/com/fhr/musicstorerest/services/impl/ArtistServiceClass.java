@@ -27,4 +27,9 @@ public class ArtistServiceClass implements IArtistService {
 		return artistDAO.findById(id);
 	}
 
+	@Override
+	public List<Artist> findArtistByName(String name) {
+		return artistDAO.findByName(name);
+	}
+
 }

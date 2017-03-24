@@ -16,9 +16,8 @@ public class GenreServiceClass implements IGenreService {
 	
 	@Cacheable(value="genreCache",key="#genreName")
 	@Override
-	public Genre findGenreByName(String genreName) {
-		List<Genre> genres=genreDAO.findByName(genreName);
-		return genres.size()==0?null:genres.get(0);
+	public List<Genre> findGenreByName(String genreName) {
+		return genreDAO.findByName(genreName);
 	}
 	@Cacheable(value="genreCache",key="#root.methodName")
 	@Override

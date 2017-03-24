@@ -95,7 +95,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>springrest</servlet-name>
-    <url-pattern>/api/*</url-pattern>
+    <url-pattern>/api/v1/*</url-pattern>
   </servlet-mapping>
   
    <!-- 配置session过期时间-->
