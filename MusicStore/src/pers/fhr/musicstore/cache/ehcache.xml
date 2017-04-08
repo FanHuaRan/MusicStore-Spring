@@ -12,7 +12,14 @@
             timeToLiveSeconds="20"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"/>
-            
+       
+       <cache name="ipCache"
+        maxElementsInMemory="1000"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="0"/>
+       
 	  <cache name="artistCache"
         maxElementsInMemory="1000"
         eternal="false"
