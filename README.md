@@ -8,6 +8,8 @@ MusicStore-spring is a web site and a simple rest webapi for java ee.
 
 * ehcache
 
+* Redis
+
 * spring security 3.2
 
 * log4j
