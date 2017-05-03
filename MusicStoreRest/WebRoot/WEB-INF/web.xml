@@ -93,6 +93,7 @@
         </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <!-- springrest控制器的映射格式最好是~/api/版本号/* -->
   <servlet-mapping>
     <servlet-name>springrest</servlet-name>
     <url-pattern>/api/v1/*</url-pattern>
