@@ -50,12 +50,14 @@
 		</property>
 			<property name="mappingResources">
 			<list>
-			<value>com/fhr/musicstorerest/models/Cart.hbm.xml</value>
-			<value>com/fhr/musicstorerest/models/Artist.hbm.xml</value>
-			<value>com/fhr/musicstorerest/models/Orderdetail.hbm.xml</value>
-			<value>com/fhr/musicstorerest/models/Album.hbm.xml</value>
-			<value>com/fhr/musicstorerest/models/Genre.hbm.xml</value>
-			<value>com/fhr/musicstorerest/models/Order.hbm.xml</value></list>
+				<value>com/fhr/musicstorerest/models/Cart.hbm.xml</value>
+				<value>com/fhr/musicstorerest/models/Artist.hbm.xml</value>
+				<value>com/fhr/musicstorerest/models/Orderdetail.hbm.xml</value>
+				<value>com/fhr/musicstorerest/models/Album.hbm.xml</value>
+				<value>com/fhr/musicstorerest/models/Genre.hbm.xml</value>
+				<value>com/fhr/musicstorerest/models/Order.hbm.xml</value>
+				<value>com/fhr/musicstorerest/models/Oauthclient.hbm.xml</value>
+			</list>
 		</property>
 	</bean>
 	  <!-- 启用Spring注解 -->
