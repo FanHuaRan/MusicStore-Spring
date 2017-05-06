@@ -15,8 +15,8 @@ import com.fhr.musicstorerest.services.IUserService;
 
 /**
  * 用户服务
- * @author ASUS
- *
+ * @author fhr
+ * @date 2017/03/20
  */
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
 	

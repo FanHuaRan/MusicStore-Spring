@@ -15,6 +15,8 @@ import com.fhr.musicstorerest.services.IClientService;
 /**
  * 客户端服务实现
  * 每个客户端都需要像用户那样进行对待！
+ * 客户端包括clientId,ClientSecret,GrantTypes三个信息，这儿ClientId、ClientSecret是数据库取出来
+ * GrantTypes可以硬编码
  * @author fhr
  * @date 2017/05/05 
  */

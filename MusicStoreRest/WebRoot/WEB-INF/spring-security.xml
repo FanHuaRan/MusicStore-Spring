@@ -13,101 +13,80 @@
 1.http://www.cnblogs.com/0201zcr/p/5328847.html
 2.http://www.cnblogs.com/wgp13x/p/4626026.html -->
 
-<!-- 配置token存储器，这儿使用的是内存存储 -->
-<bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore" />
-
-<!-- 配置token服务 -->
-<bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices" >
-	<property name="tokenStore" ref="tokenStore" />
-	<property name="supportRefreshToken" value ="true" />
+<!-- 配置token存储器 这儿使用的是内存存储 -->
+<bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore"/>
+<!-- 配置token服务 这儿准许刷新token -->
+<bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <property name="tokenStore" ref="tokenStore"/>
+        <property name="supportRefreshToken" value="true"/>
 </bean>
-
-<!-- 配置访问控制管理器 -->
-<bean id = "accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased" >
-	<constructor-arg>
-		<list>
-		<bean class="org.springframework.security.web.access.expression.WebExpressionVoter" />  
-		<bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter" />
-		<bean class="org.springframework.security.access.vote.RoleVoter" />
-		<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
-		</list>
-	</constructor-arg>
-</bean>
-
-<!-- 配置客户端授权端点 -->
-<bean id="clientAuthenticationEntryPoint"  class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">  
-        <property name="realmName" value="springsec/client" />  
-        <property name="typeName" value="Basic" />  
-</bean>  
-
+<!-- 配置客户端授权入口点 -->
+<bean id="clientAuthenticationEntryPoint" class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint"/>
 <!-- 配置访问禁止处理器 -->
-<bean id="oauthAccessDeniedHandler"  class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />  
-
-<!-- 配置用户批准处理器 -->
-<bean id="userApprovalHandler" class ="org.springframework.security.oauth2.provider.approval.DefaultUserApprovalHandler" />
-
-<!-- 配置客户端服务bean-->
-<bean id = "clientDetailsService" class="com.fhr.musicstorerest.services.impl.MyClientDetailServiceImpl"/>
-
-<!-- 配置用户服务bean -->
-<bean id="userService" class="com.fhr.musicstorerest.services.impl.CustomUserDetailsServiceImpl" />
-
-<!-- 配置客户端用户服务bean 将客户端服务bean作为构造方法参数传入 -->
-<bean id="clientDetailsUserDetailsService" class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService" >
-	<constructor-arg ref= "clientDetailsService"/>
+<bean id="accessDeniedHandler" class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler"/>
+<!-- 配置通过处理器 -->
+<bean id="userApprovalHandler" class="org.springframework.security.oauth2.provider.approval.DefaultUserApprovalHandler"/>
+<!-- 配置客户端服务bean 这儿是要我们自己写的 -->
+<bean id="clientDetailsService" class="com.fhr.musicstorerest.services.impl.MyClientDetailServiceImpl"/>
+<!-- 配置客户端用户服务 是对上面的服务包装 -->
+<bean id="clientDetailsUserDetailsService" class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+        <constructor-arg ref="clientDetailsService"/>
 </bean>
-
-<!-- 配置客户端证书口令过滤器 -->
-<bean id = "clientCredentialsTokenEndpointFilter" class = "org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter" >
-	<property name="authenticationManager" ref="clientAuthenticationManager" />
-</bean>
-
-<!-- 配置有关客户端的spring-security认证管理器 -->
-<security:authentication-manager id="clientAuthenticationManager" >
-	<security:authentication-provider user-service-ref= "clientDetailsUserDetailsService" />
+<!-- 配置用户服务bean 这儿也是要自己写 -->
+<bean id="userService" class="com.fhr.musicstorerest.services.impl.CustomUserDetailsServiceImpl"/>
+<!-- 配置客户端凭证口令过滤器 -->
+<bean id="clientCredentialsTokenEndpointFilter" class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
+        <property name="authenticationManager" ref="clientAuthenticationManager"/>
+ </bean>
+<!-- 配置授权管理器 关于客户端 --> 
+<security:authentication-manager id="clientAuthenticationManager">
+        <security:authentication-provider user-service-ref="clientDetailsUserDetailsService"/>
 </security:authentication-manager>
-
-<!-- 配置有关用户的spring-security认证管理器 alias是一个引用的作用-->
-<security:authentication-manager alias="authenticationManager" >
-	<security:authentication-provider user-service-ref="userService" />
+<!-- 配置授权管理器 关于用户 --> 
+<security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="userService">
+        </security:authentication-provider>
 </security:authentication-manager>
+<!-- 配置Oauth授权服务器  口令默认过期时间为12小时-->
+<oauth2:authorization-server client-details-service-ref="clientDetailsService" token-services-ref="tokenServices"
+                                 user-approval-handler-ref="userApprovalHandler">
+        <oauth2:authorization-code/>
+        <oauth2:implicit/>
+        <oauth2:refresh-token/>
+        <oauth2:client-credentials/>
+        <oauth2:password/>
+</oauth2:authorization-server>
+<!-- 配置OAuth口令访问策略 -->
+<security:http pattern="/oauth/token" create-session="stateless"
+                   authentication-manager-ref="clientAuthenticationManager">
+        <security:anonymous enabled="false"/>
+        <security:http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
+        <security:custom-filter ref="clientCredentialsTokenEndpointFilter" before="BASIC_AUTH_FILTER"/>
+        <security:access-denied-handler ref="accessDeniedHandler"/>
+    </security:http>
+<!-- 配置访问投票器 -->
+<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+        <constructor-arg>
+            <list>
+            	<!--WebExpressionVoter投票器配置后才能够使用spEL表达式 否则只能使用ROLE_xxx形式的access属性 真怪  -->
+            	<bean class="org.springframework.security.web.access.expression.WebExpressionVoter" />  
+                <bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+            </list>
+        </constructor-arg>
+</bean>    
 
-<!-- 配置oauth认证服务器 -->
-<oauth2:authorization-server client-details-service-ref= "clientDetailsService" token-services-ref= "tokenServices"
-user-approval-handler-ref= "userApprovalHandler" >
-	<oauth2:authorization-code />
-	<oauth2:implicit/>
-	<oauth2:refresh-token/>
-	<oauth2:client-credentials/>
-	<oauth2:password/>
-</oauth2:authorization-server>	
-
-<!-- 配置资源服务器 可以有多个-->
-<oauth2:resource-server id="mobileResourceServer" resource-id="mobile-resource" token-services-ref="tokenServices" />
-<!--  
-<oauth2:resource-server id="webResourceServer" resource-id="web-resource" token-services-ref="tokenServices" />
--->
-
-<!-- 配置oauth口令请求-->
-<!--  /oauth/token 是oauth2登陆验证请求的url用于获取access_token  ,默认的生存时间是43200秒，即12小时-->
-<security:http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="clientAuthenticationManager" use-expressions="true" >
-	<!--<security:anonymous enabled="false" />-->
-	<security:http-basic entry-point-ref= "clientAuthenticationEntryPoint" />
-	<security:custom-filter ref="clientCredentialsTokenEndpointFilter" before= "BASIC_AUTH_FILTER" />
-	<security:access-denied-handler ref="oauthAccessDeniedHandler" />
+<!-- 配置资源中心 可以有多个资源中心 每个资源中心对应一个http节点进行策略控制 -->
+<oauth2:resource-server id="mobileResourceServer" resource-id="mobile-resource" token-services-ref="tokenServices"/>
+<!--<oauth2:resource-server id="webResourceServer" resource-id="web-resource" token-services-ref="tokenServices"/>  -->
+<!-- 针对上面的资源中心配置http节点访问策略 -->
+<security:http pattern="/api/v1/**" use-expressions="true" create-session="never" entry-point-ref="clientAuthenticationEntryPoint"
+                   access-decision-manager-ref="accessDecisionManager">
+        <security:anonymous enabled="false"/>
+        <security:intercept-url pattern="/api/v1/Albums" access="hasRole('Admin')"/>
+         <!--<security:intercept-url pattern="/Albums" access="ROLE_Admin"/>-->
+        <security:custom-filter ref="mobileResourceServer" before="PRE_AUTH_FILTER"/>
+        <security:access-denied-handler ref="accessDeniedHandler"/>
 </security:http>
-
-<!-- 配置资源访问的请求及拦截策略-->
-<security:http pattern= "/api/v1/**" use-expressions="true" create-session="never" entry-point-ref="clientAuthenticationEntryPoint"
-access-decision-manager-ref= "accessDecisionManager">
-	<security:anonymous enabled = "false"/>
-	
-	<security:intercept-url pattern="/api/v1/Albums" access="hasRole('Admin')"/>
-	<!-- 
-	<security:intercept-url pattern="/api/v1/Albums/**" access="Admin"/>
-	-->
-	<security:custom-filter ref= "mobileResourceServer" before="PRE_AUTH_FILTER" />
-	<security:access-denied-handler ref= "oauthAccessDeniedHandler" />
-</security:http>
-
 </beans>

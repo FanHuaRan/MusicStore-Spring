@@ -93,12 +93,7 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.woff</url-pattern>
   </servlet-mapping>
-  <!-- 因为我们的springrest前端控制器是使用的/api/v1/*的请求 
-  	      而我们的oauth授权是使用的/oauth/token 所以这里面要配置对于/oauth/token的映射 -->
-  <servlet-mapping>
-    <servlet-name>default</servlet-name>
-    <url-pattern>/oauth/token</url-pattern>
-  </servlet-mapping>
+  
   <!-- web前端控制器 可以返回视图 同时也支持返回json-->
   <servlet>
     <servlet-name>springrest</servlet-name>
@@ -108,9 +103,12 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <!-- springrest控制器的映射格式最好是~/api/版本号/* -->
+  <!--  因为我们的springrest前端控制器是使用的/api/v1/*的请求 
+  	      而我们的oauth授权是使用的/oauth/token 所以这里面要配置对于/oauth/token的映射 不然404-->
   <servlet-mapping>
     <servlet-name>springrest</servlet-name>
-    <url-pattern>/api/v1/*</url-pattern>
+     <url-pattern>/api/v1/*</url-pattern>
+     <url-pattern>/oauth/token</url-pattern>
   </servlet-mapping>
   
    <!-- 配置session过期时间-->
