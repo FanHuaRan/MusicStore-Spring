@@ -82,7 +82,7 @@ user-approval-handler-ref= "userApprovalHandler" >
 	<oauth2:password/>
 </oauth2:authorization-server>	
 
-<!-- 配置oauth资源服务器 可以有多个-->
+<!-- 配置资源服务器 可以有多个-->
 <oauth2:resource-server id="mobileResourceServer" resource-id="mobile-resource" token-services-ref="tokenServices" />
 <!--  
 <oauth2:resource-server id="webResourceServer" resource-id="web-resource" token-services-ref="tokenServices" />
@@ -91,7 +91,7 @@ user-approval-handler-ref= "userApprovalHandler" >
 <!-- 配置oauth口令请求-->
 <!--  /oauth/token 是oauth2登陆验证请求的url用于获取access_token  ,默认的生存时间是43200秒，即12小时-->
 <security:http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="clientAuthenticationManager" use-expressions="true" >
-	<security:anonymous enabled="false" />
+	<!--<security:anonymous enabled="false" />-->
 	<security:http-basic entry-point-ref= "clientAuthenticationEntryPoint" />
 	<security:custom-filter ref="clientCredentialsTokenEndpointFilter" before= "BASIC_AUTH_FILTER" />
 	<security:access-denied-handler ref="oauthAccessDeniedHandler" />

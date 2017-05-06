@@ -5,7 +5,7 @@
           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
-  <!-- 注册用户服务bean 该bean必须实现UserDetailsService -->
+  <!-- 配置用户服务bean 该bean必须实现UserDetailsService -->
   <bean id="customUserDetailsService" 
   class="pers.fhr.musicstore.services.impl.CustomUserDetailsServiceImpl" />  
  
@@ -15,7 +15,7 @@
   	  <security:intercept-url pattern="/Checkout" access="hasRole('Admin') or hasRole('User')"/>
       <security:intercept-url pattern="/Checkout/*" access="hasRole('Admin') or hasRole('User')"/>
       <security:intercept-url pattern="/StoreManager/*" access="hasRole('Admin')"/>
-            <security:intercept-url pattern="/StoreManager" access="hasRole('Admin')"/>
+      <security:intercept-url pattern="/StoreManager" access="hasRole('Admin')"/>
       <!-- 配置登录页面和登录成功页面 如果不配置将会使用Spring Security自带的页面-->
   	   <security:form-login login-page="/Account/logOn"   
         					authentication-failure-url="/Account/logOn" 
